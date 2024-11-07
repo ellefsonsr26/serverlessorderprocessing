@@ -18,16 +18,24 @@
             border: 2px solid #333;
             background-color: #fff;
         }
-        h1 {
+        h1, button {
             text-align: center;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div>
         <h1>Snake Game</h1>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <p>Use arrow keys to control the snake.</p>
+        <button id="startButton">Play</button>
+        <canvas id="gameCanvas" width="400" height="400" style="display: none;"></canvas>
+        <p>Use arrow keys or WASD to control the snake.</p>
     </div>
 
     <script>
@@ -42,6 +50,7 @@
             y: Math.floor(Math.random() * canvas.height / boxSize) * boxSize
         };
         let score = 0;
+        let gameInterval = null;
 
         function drawGame() {
             // Clear the canvas
@@ -84,7 +93,7 @@
 
             // Check for collisions with the wall
             if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height || collision(newHead, snake)) {
-                clearInterval(game);
+                clearInterval(gameInterval);
                 alert("Game Over! Your score: " + score);
                 resetGame();
             }
@@ -103,7 +112,8 @@
                 x: Math.floor(Math.random() * canvas.width / boxSize) * boxSize,
                 y: Math.floor(Math.random() * canvas.height / boxSize) * boxSize
             };
-            game = setInterval(drawGame, 100);
+            document.getElementById("startButton").style.display = "block";
+            canvas.style.display = "none";
         }
 
         function collision(head, array) {
@@ -115,22 +125,26 @@
             return false;
         }
 
-        // Control the snake with arrow keys
+        // Start the game on button click
+        document.getElementById("startButton").addEventListener("click", function() {
+            this.style.display = "none";
+            canvas.style.display = "block";
+            gameInterval = setInterval(drawGame, 75); // faster interval for smoother movement
+        });
+
+        // Control the snake with arrow keys and WASD
         document.addEventListener("keydown", function(event) {
-            if (event.key === "ArrowLeft" && direction !== "RIGHT") {
+            if ((event.key === "ArrowLeft" || event.key === "a") && direction !== "RIGHT") {
                 direction = "LEFT";
-            } else if (event.key === "ArrowUp" && direction !== "DOWN") {
+            } else if ((event.key === "ArrowUp" || event.key === "w") && direction !== "DOWN") {
                 direction = "UP";
-            } else if (event.key === "ArrowRight" && direction !== "LEFT") {
+            } else if ((event.key === "ArrowRight" || event.key === "d") && direction !== "LEFT") {
                 direction = "RIGHT";
-            } else if (event.key === "ArrowDown" && direction !== "UP") {
+            } else if ((event.key === "ArrowDown" || event.key === "s") && direction !== "UP") {
                 direction = "DOWN";
             }
         });
-
-        // Start the game
-        let game = setInterval(drawGame, 100);
     </script>
-  <a href="index.html">Back to Home</a>
+    <a href="index.html">Back to Home</a>
 </body>
 </html>
