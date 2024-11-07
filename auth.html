@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authenticating...</title>
+</head>
+<body>
+    <h1>Authenticating...</h1>
+    <script>
+        // Parse the URL hash to retrieve the access token
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        
+        if (params.has('access_token')) {
+            // Store the access token in local storage or session storage
+            const accessToken = params.get('access_token');
+            localStorage.setItem('accessToken', accessToken);
+
+            // Redirect to the main page (e.g., index.html) after authentication
+            window.location.href = 'index.html';
+        } else {
+            // If no access token is found, redirect back to login page
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
