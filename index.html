@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+        // Check if the user is authenticated by looking for an access token
+        const accessToken = localStorage.getItem('accessToken');
+        
+        if (!accessToken) {
+            // If no token is found, redirect to login.html
+            window.location.href = 'login.html';
+        }
+    </script>
   <title>Home</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
