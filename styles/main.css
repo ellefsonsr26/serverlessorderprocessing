@@ -1,30 +1,37 @@
 /* Basic styling for the page */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif; /* Modern sans-serif font */
   margin: 0;
   padding: 0;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: #f4f4f9; /* Soft light gray background */
+  color: #333; /* Dark text color for readability */
+  line-height: 1.6;
 }
 
 /* Navbar styling */
 .navbar {
   display: flex;
-  background-color: #333;
-  padding: 10px 20px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; /* Dark gray background */
+  padding: 15px 30px; /* More padding for a cleaner look */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 /* Combined styling for links and dropdown main link */
 .navbar a, .dropdown > a {
-  color: #f4f4f9;
-  padding: 10px 15px;
+  color: #f4f4f9; /* Light text color for links */
+  padding: 10px 20px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
-  display: inline-block; /* Ensures "More" aligns with other items */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+  display: inline-block;
+  font-size: 16px; /* Slightly larger font for readability */
 }
 
 .navbar a:hover, .dropdown > a:hover {
-  background-color: #555;
+  background-color: #555; /* Lighter gray on hover */
+  color: #fff; /* Maintain contrast on hover */
+  border-radius: 4px; /* Slightly rounded corners */
 }
 
 /* Dropdown container */
@@ -35,26 +42,58 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 100%; /* Positions dropdown directly below the "More" link */
+  top: 100%; /* Positioned below the "More" link */
   left: 0;
-  background-color: #333;
+  background-color: #333; /* Dark background for dropdown */
   min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Shadow for dropdown */
   z-index: 1;
+  border-radius: 4px; /* Rounded corners */
 }
 
 .dropdown-content a {
-  color: #f4f4f9;
-  padding: 10px 15px;
+  color: #f4f4f9; /* White text */
+  padding: 12px 20px;
   display: block;
   text-align: left;
+  font-size: 15px; /* Slightly smaller font for dropdown items */
 }
 
 .dropdown-content a:hover {
-  background-color: #555;
+  background-color: #555; /* Light gray background on hover */
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: block; /* Display dropdown on hover */
 }
 
+/* Content area */
+.content {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Heading styling */
+.content h1 {
+  font-size: 32px; /* Large heading for impact */
+  font-weight: 600; /* Bold weight for headings */
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Paragraph styling */
+.content p {
+  font-size: 16px;
+  color: #666; /* Light gray text for paragraphs */
+  line-height: 1.8;
+  margin-bottom: 20px; /* Space between paragraphs */
+}
+
+.content p:hover {
+  color: #333; /* Darker text color on hover */
+  cursor: pointer;
+}
