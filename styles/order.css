@@ -1,0 +1,51 @@
+/* Basic styling for the page */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+/* Navbar styling */
+.navbar {
+  display: flex;
+  background-color: #333;
+  padding: 10px 20px;
+}
+/* Combined styling for links and dropdown main link */
+.navbar a, .dropdown > a {
+  color: #f4f4f9;
+  padding: 10px 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: inline-block; /* Ensures "More" aligns with other items */
+}
+.navbar a:hover, .dropdown > a:hover {
+  background-color: #555;
+}
+/* Dropdown container */
+.dropdown {
+  position: relative;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%; /* Positions dropdown directly below the "More" link */
+  left: 0;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #f4f4f9;
+  padding: 10px 15px;
+  display: block;
+  text-align: left;
+}
+.dropdown-content a:hover {
+  background-color: #555;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
