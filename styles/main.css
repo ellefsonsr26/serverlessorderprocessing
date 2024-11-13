@@ -61,7 +61,7 @@ body {
     border-radius: 5px;      /* Optional: rounded corners */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
 }
-p {
+#special paragraph {
   font-size: 1.1em;      /* Slightly larger font */
   line-height: 1.6;      /* Better line spacing */
   color: #333;           /* Dark gray text color */
