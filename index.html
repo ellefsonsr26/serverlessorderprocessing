@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="stylesheet" href="styles/main.css">
-      <div id="auth-section">
-            <button id="login-button" onclick="redirectToLogin()">Login</button>
-            <span id="username-display" style="display: none;"></span>
-            <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
-      </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/auth.js"></script> <!-- Link to shared JavaScript file -->
 </head>
 <body>
+  <div id="auth-section">
+        <button id="login-button" onclick="redirectToLogin()">Login</button>
+        <span id="username-display" style="display: none;"></span>
+        <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
+    </div>
 
   <!-- Navbar -->
   <div class="navbar">
@@ -32,86 +33,6 @@
     <h1>Welcome to the Home page</h1>
     <p>This is a simple webpage layout with a navbar containing a dropdown menu. I like cheese</p>
   </div>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/amazon-cognito-identity-js/4.5.10/amazon-cognito-identity.min.js"></script>
-    <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    checkUserSession();
-});
-
-const userPool = new AmazonCognitoIdentity.CognitoUserPool({
-    UserPoolId: 'us-east-1_RDJDndZIo',
-    ClientId: 'dn60bjb6uq8osji8j5bghlkpt'
-});
-
-function redirectToLogin() {
-    const cognitoLoginUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=dn60bjb6uq8osji8j5bghlkpt&response_type=token&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fdsuse8fg02nie.cloudfront.net%2Findex.html";
-    window.location.href = cognitoLoginUrl;
-}
-
-function getTokenFromUrl() {
-    const hash = window.location.hash.substring(1); // Get the URL fragment after `#`
-    const params = new URLSearchParams(hash);
-    const idToken = params.get("id_token");
-    const accessToken = params.get("access_token");
-
-    if (idToken && accessToken) {
-        sessionStorage.setItem("id_token", idToken);
-        sessionStorage.setItem("access_token", accessToken);
-        window.location.hash = ""; // Clear the URL fragment for a cleaner URL
-        return { idToken, accessToken };
-    }
-    return null;
-}
-
-function checkUserSession() {
-    // Try to retrieve tokens from the URL on page load
-    let tokens = getTokenFromUrl();
-
-    // If tokens weren't found in the URL, retrieve them from session storage
-    if (!tokens) {
-        const idToken = sessionStorage.getItem("id_token");
-        const accessToken = sessionStorage.getItem("access_token");
-        if (idToken && accessToken) {
-            tokens = { idToken, accessToken };
-        }
-    }
-
-    if (tokens) {
-        const username = parseUsernameFromIdToken(tokens.idToken);
-        displayUserInfo(username);
-    } else {
-        showLoginButton();
-    }
-}
-
-function parseUsernameFromIdToken(idToken) {
-    // Decode the ID token (JWT format) to extract the username
-    const payloadBase64 = idToken.split('.')[1]; // The payload is the second part of the JWT
-    const payloadJson = atob(payloadBase64); // Decode the base64-encoded payload
-    const payload = JSON.parse(payloadJson);
-    return payload["cognito:username"] || payload["preferred_username"] || payload["email"]; // Fallback to email if username is not set
-}
-
-function displayUserInfo(username) {
-    document.getElementById('username-display').innerText = `Hello, ${username}`;
-    document.getElementById('username-display').style.display = 'inline';
-    document.getElementById('login-button').style.display = 'none';
-    document.getElementById('logout-button').style.display = 'inline';
-}
-
-function showLoginButton() {
-    document.getElementById('username-display').style.display = 'none';
-    document.getElementById('login-button').style.display = 'inline';
-    document.getElementById('logout-button').style.display = 'none';
-}
-
-function logout() {
-    sessionStorage.removeItem("id_token");
-    sessionStorage.removeItem("access_token");
-    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/logout-success.html";
-    window.location.href = cognitoLogoutUrl;
-}
-    </script>
 </body>
 </html>
 
