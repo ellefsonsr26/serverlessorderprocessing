@@ -29,16 +29,16 @@
             color: #555;
             margin: 15px 0;
         }
-        .login-link {
+        .button {
             display: inline-block;
-            margin-top: 20px;
+            margin: 10px;
             padding: 10px 20px;
             color: #fff;
             background-color: #007bff;
             text-decoration: none;
             border-radius: 4px;
         }
-        .login-link:hover {
+        .button:hover {
             background-color: #0056b3;
         }
     </style>
@@ -47,7 +47,12 @@
     <div class="container">
         <h1>You Have Successfully Logged Out</h1>
         <p>Thank you for visiting our site. You are now logged out.</p>
-        <a href="https://s3verification.auth.us-east-1.amazoncognito.com/login?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/index.html&response_type=token" class="login-link">Log In Again</a>
+        
+        <!-- Button to Log In Again -->
+        <a href="https://s3verification.auth.us-east-1.amazoncognito.com/login?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/index.html&response_type=token" class="button">Log In Again</a>
+        
+        <!-- Button to Go Back to the Main Page -->
+        <a href="https://dsuse8fg02nie.cloudfront.net/index.html" class="button">Go to Main Page</a>
     </div>
 </body>
 </html>
