@@ -49,7 +49,7 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-#auth-section {
+#auth-section { /* formatting for login logout button */
     position: absolute;      /* Positions the element absolutely relative to the page */
     top: 10px;               /* Distance from the top of the page */
     right: 10px;             /* Distance from the right side of the page */
