@@ -7,10 +7,6 @@
   <link rel="stylesheet" href="../styles/order.css">
 </head>
 <body>
- <div id="auth-section" style="display: none;">
-        <span id="username-display"></span>
-        <button id="logout-button" class="button" onclick="logout()">Logout</button>
-    </div>
   <!-- Navbar -->
   <div class="navbar">
     <a href="../index.html">Home</a>
@@ -30,49 +26,6 @@
     <h1>Welcome to the Order page</h1>
     <p>This is a simple webpage layout with a navbar containing a dropdown menu.</p>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/amazon-cognito-identity-js/4.5.10/amazon-cognito-identity.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            ensureAuthenticated();
-        });
-
-        function ensureAuthenticated() {
-            const idToken = sessionStorage.getItem("id_token");
-
-            if (!idToken) {
-                // Redirect to login if not authenticated
-                redirectToLogin();
-            } else {
-                // Display username and logout button if authenticated
-                const username = parseUsernameFromIdToken(idToken);
-                displayUserInfo(username);
-            }
-        }
-
-        function redirectToLogin() {
-            const cognitoLoginUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/login?client_id=dn60bjb6uq8osji8j5bghlkpt&response_type=token&scope=email+openid+profile&redirect_uri=https://dsuse8fg02nie.cloudfront.net/restricted-page.html";
-            window.location.href = cognitoLoginUrl;
-        }
-
-        function parseUsernameFromIdToken(idToken) {
-            // Decode the ID token (JWT format) to extract the username
-            const payloadBase64 = idToken.split('.')[1];
-            const payloadJson = atob(payloadBase64);
-            const payload = JSON.parse(payloadJson);
-            return payload["cognito:username"] || payload["preferred_username"] || payload["email"];
-        }
-
-        function displayUserInfo(username) {
-            document.getElementById('username-display').innerText = `Hello, ${username}`;
-            document.getElementById('auth-section').style.display = 'flex';
-        }
-
-        function logout() {
-            sessionStorage.removeItem("id_token");
-            sessionStorage.removeItem("access_token");
-            const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/index.html";
-            window.location.href = cognitoLogoutUrl;
-        }
 </body>
 </html>
 
