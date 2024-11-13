@@ -49,3 +49,15 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+#auth-section {
+    position: absolute;      /* Positions the element absolutely relative to the page */
+    top: 10px;               /* Distance from the top of the page */
+    left: 10px;              /* Distance from the left side of the page */
+    display: flex;           /* Aligns items horizontally */
+    align-items: center;     /* Vertically aligns items */
+    gap: 10px;               /* Adds space between the button and username */
+    background-color: white; /* Optional: background color */
+    padding: 5px 10px;       /* Optional: padding around content */
+    border-radius: 5px;      /* Optional: rounded corners */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
+}
