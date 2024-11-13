@@ -34,50 +34,74 @@
   </div>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/amazon-cognito-identity-js/4.5.10/amazon-cognito-identity.min.js"></script>
     <script>
-        const userPool = new AmazonCognitoIdentity.CognitoUserPool({
-            UserPoolId: 'us-east-1_RDJDndZIo',
-            ClientId: 'dn60bjb6uq8osji8j5bghlkpt'
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+    checkUserSession();
+});
 
-        function redirectToLogin() {
-            const cognitoLoginUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=dn60bjb6uq8osji8j5bghlkpt&response_type=token&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fdsuse8fg02nie.cloudfront.net%2Findex.html";
-            window.location.href = cognitoLoginUrl;
+const userPool = new AmazonCognitoIdentity.CognitoUserPool({
+    UserPoolId: 'your_user_pool_id',
+    ClientId: 'your_client_id'
+});
+
+function redirectToLogin() {
+    const cognitoLoginUrl = "https://your-cognito-domain.auth.region.amazoncognito.com/login?client_id=your_client_id&response_type=token&scope=email+openid+profile&redirect_uri=https://your-website.com";
+    window.location.href = cognitoLoginUrl;
+}
+
+function getTokenFromUrl() {
+    const hash = window.location.hash.substring(1); // Get the URL fragment after `#`
+    const params = new URLSearchParams(hash);
+    const idToken = params.get("id_token");
+    const accessToken = params.get("access_token");
+
+    if (idToken && accessToken) {
+        sessionStorage.setItem("id_token", idToken);
+        sessionStorage.setItem("access_token", accessToken);
+        window.location.hash = ""; // Clear the URL fragment for a cleaner URL
+        return { idToken, accessToken };
+    }
+    return null;
+}
+
+function checkUserSession() {
+    // Try to retrieve tokens from the URL on page load
+    let tokens = getTokenFromUrl();
+
+    // If tokens weren't found in the URL, retrieve them from session storage
+    if (!tokens) {
+        const idToken = sessionStorage.getItem("id_token");
+        const accessToken = sessionStorage.getItem("access_token");
+        if (idToken && accessToken) {
+            tokens = { idToken, accessToken };
         }
+    }
 
-        function checkUserSession() {
-            const cognitoUser = userPool.getCurrentUser();
-            if (cognitoUser) {
-                cognitoUser.getSession((err, session) => {
-                    if (session.isValid()) {
-                        displayUserInfo(cognitoUser.getUsername());
-                    } else {
-                        showLoginButton();
-                    }
-                });
-            } else {
-                showLoginButton();
-            }
-        }
+    if (tokens) {
+        displayUserInfo("LoggedInUser"); // Replace with actual user info retrieval logic
+    } else {
+        showLoginButton();
+    }
+}
 
-        function displayUserInfo(username) {
-            document.getElementById('username-display').innerText = `Hello, ${username}`;
-            document.getElementById('username-display').style.display = 'inline';
-            document.getElementById('login-button').style.display = 'none';
-            document.getElementById('logout-button').style.display = 'inline';
-        }
+function displayUserInfo(username) {
+    document.getElementById('username-display').innerText = `Hello, ${username}`;
+    document.getElementById('username-display').style.display = 'inline';
+    document.getElementById('login-button').style.display = 'none';
+    document.getElementById('logout-button').style.display = 'inline';
+}
 
-        function showLoginButton() {
-            document.getElementById('username-display').style.display = 'none';
-            document.getElementById('login-button').style.display = 'inline';
-            document.getElementById('logout-button').style.display = 'none';
-        }
+function showLoginButton() {
+    document.getElementById('username-display').style.display = 'none';
+    document.getElementById('login-button').style.display = 'inline';
+    document.getElementById('logout-button').style.display = 'none';
+}
 
-        function logout() {
-            const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&logout_uri=https://dsuse8fg02nie.cloudfront.net/index.html";
-            window.location.href = cognitoLogoutUrl;
-        }
-
-        checkUserSession();
+function logout() {
+    sessionStorage.removeItem("id_token");
+    sessionStorage.removeItem("access_token");
+    const cognitoLogoutUrl = "https://your-cognito-domain.auth.region.amazoncognito.com/logout?client_id=your_client_id&logout_uri=https://your-website.com";
+    window.location.href = cognitoLogoutUrl;
+}
     </script>
 </body>
 </html>
