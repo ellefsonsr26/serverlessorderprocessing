@@ -34,7 +34,7 @@
   </div>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/amazon-cognito-identity-js/4.5.10/amazon-cognito-identity.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
     checkUserSession();
 });
 
@@ -77,10 +77,19 @@ function checkUserSession() {
     }
 
     if (tokens) {
-        displayUserInfo("LoggedInUser"); // Replace with actual user info retrieval logic
+        const username = parseUsernameFromIdToken(tokens.idToken);
+        displayUserInfo(username);
     } else {
         showLoginButton();
     }
+}
+
+function parseUsernameFromIdToken(idToken) {
+    // Decode the ID token (JWT format) to extract the username
+    const payloadBase64 = idToken.split('.')[1]; // The payload is the second part of the JWT
+    const payloadJson = atob(payloadBase64); // Decode the base64-encoded payload
+    const payload = JSON.parse(payloadJson);
+    return payload["cognito:username"] || payload["preferred_username"] || payload["email"]; // Fallback to email if username is not set
 }
 
 function displayUserInfo(username) {
