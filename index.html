@@ -108,7 +108,7 @@ function showLoginButton() {
 function logout() {
     sessionStorage.removeItem("id_token");
     sessionStorage.removeItem("access_token");
-    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net";
+    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net&response_type=id_token";
     window.location.href = cognitoLogoutUrl;
 }
     </script>
