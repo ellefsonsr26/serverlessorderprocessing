@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        // Check if the user is authenticated by looking for an access token
-        const accessToken = localStorage.getItem('accessToken');
-        
-        if (!accessToken) {
-            // If no token is found, redirect to login.html
-            window.location.href = 'login.html';
-        }
-    </script>
   <title>Home</title>
   <link rel="stylesheet" href="styles/main.css">
+      <div id="auth-section">
+            <button id="login-button" onclick="redirectToLogin()">Login</button>
+            <span id="username-display" style="display: none;"></span>
+            <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
+      </div>
 </head>
 <body>
 
@@ -36,7 +32,53 @@
     <h1>Welcome to the Home page</h1>
     <p>This is a simple webpage layout with a navbar containing a dropdown menu. I like cheese</p>
   </div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/amazon-cognito-identity-js/4.5.10/amazon-cognito-identity.min.js"></script>
+    <script>
+        const userPool = new AmazonCognitoIdentity.CognitoUserPool({
+            UserPoolId: 'us-east-1_RDJDndZIo',
+            ClientId: 'dn60bjb6uq8osji8j5bghlkpt'
+        });
 
+        function redirectToLogin() {
+            const cognitoLoginUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/login?client_id=dn60bjb6uq8osji8j5bghlkpt&response_type=token&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fdsuse8fg02nie.cloudfront.net";
+            window.location.href = cognitoLoginUrl;
+        }
+
+        function checkUserSession() {
+            const cognitoUser = userPool.getCurrentUser();
+            if (cognitoUser) {
+                cognitoUser.getSession((err, session) => {
+                    if (session.isValid()) {
+                        displayUserInfo(cognitoUser.getUsername());
+                    } else {
+                        showLoginButton();
+                    }
+                });
+            } else {
+                showLoginButton();
+            }
+        }
+
+        function displayUserInfo(username) {
+            document.getElementById('username-display').innerText = `Hello, ${username}`;
+            document.getElementById('username-display').style.display = 'inline';
+            document.getElementById('login-button').style.display = 'none';
+            document.getElementById('logout-button').style.display = 'inline';
+        }
+
+        function showLoginButton() {
+            document.getElementById('username-display').style.display = 'none';
+            document.getElementById('login-button').style.display = 'inline';
+            document.getElementById('logout-button').style.display = 'none';
+        }
+
+        function logout() {
+            const cognitoLogoutUrl = "https://your-cognito-domain.auth.region.amazoncognito.com/logout?client_id=your_client_id&logout_uri=https://your-website.com";
+            window.location.href = cognitoLogoutUrl;
+        }
+
+        checkUserSession();
+    </script>
 </body>
 </html>
 
