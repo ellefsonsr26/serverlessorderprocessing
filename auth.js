@@ -1,7 +1,7 @@
 // Run this code when the page loads
 document.addEventListener("DOMContentLoaded", function () {
-    checkUserSession();
     storeTokenFromUrl(); // Parse tokens from URL on page load
+    checkUserSession(); // Check if the user is logged in or not
 });
 
 function storeTokenFromUrl() {
@@ -42,15 +42,15 @@ function displayUserInfo(username) {
     // Display the username and show the logout button
     document.getElementById('username-display').innerText = `Hello, ${username}`;
     document.getElementById('auth-section').style.display = 'flex';
-    document.getElementById('login-button').style.display = 'none';
-    document.getElementById('logout-button').style.display = 'inline';
+    document.getElementById('login-button').style.display = 'none'; // Hide login button
+    document.getElementById('logout-button').style.display = 'inline'; // Show logout button
 }
 
 function showLoginButton() {
     // Show the login button if the user is not logged in
     document.getElementById('auth-section').style.display = 'flex';
-    document.getElementById('login-button').style.display = 'inline';
-    document.getElementById('logout-button').style.display = 'none';
+    document.getElementById('login-button').style.display = 'inline'; // Show login button
+    document.getElementById('logout-button').style.display = 'none'; // Hide logout button
 }
 
 function redirectToLogin() {
@@ -63,6 +63,6 @@ function logout() {
     // Clear session tokens and redirect to Cognito logout URL
     sessionStorage.removeItem("id_token");
     sessionStorage.removeItem("access_token");
-    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/logout-success.html";
+    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/index.html";
     window.location.href = cognitoLogoutUrl;
 }
