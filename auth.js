@@ -75,6 +75,6 @@ function logout() {
     // Clear session tokens and redirect to Cognito logout URL
     sessionStorage.removeItem("id_token");
     sessionStorage.removeItem("access_token");
-    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/logout-success.html";
+    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&redirect_uri=https://dsuse8fg02nie.cloudfront.net/logout-success.html&response_type=token";
     window.location.href = cognitoLogoutUrl;
 }
