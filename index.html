@@ -39,12 +39,12 @@
 });
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool({
-    UserPoolId: 'your_user_pool_id',
-    ClientId: 'your_client_id'
+    UserPoolId: 'us-east-1_RDJDndZIo',
+    ClientId: 'dn60bjb6uq8osji8j5bghlkpt'
 });
 
 function redirectToLogin() {
-    const cognitoLoginUrl = "https://your-cognito-domain.auth.region.amazoncognito.com/login?client_id=your_client_id&response_type=token&scope=email+openid+profile&redirect_uri=https://your-website.com";
+    const cognitoLoginUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=dn60bjb6uq8osji8j5bghlkpt&response_type=token&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fdsuse8fg02nie.cloudfront.net%2Findex.html";
     window.location.href = cognitoLoginUrl;
 }
 
@@ -99,7 +99,7 @@ function showLoginButton() {
 function logout() {
     sessionStorage.removeItem("id_token");
     sessionStorage.removeItem("access_token");
-    const cognitoLogoutUrl = "https://your-cognito-domain.auth.region.amazoncognito.com/logout?client_id=your_client_id&logout_uri=https://your-website.com";
+    const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&logout_uri=https://dsuse8fg02nie.cloudfront.net/index.html";
     window.location.href = cognitoLogoutUrl;
 }
     </script>
