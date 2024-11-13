@@ -24,23 +24,34 @@ function checkUserSession() {
     const idToken = sessionStorage.getItem("id_token");
     if (idToken) {
         const username = parseUsernameFromIdToken(idToken);
-        displayUserInfo(username); // Display username and logout button if authenticated
+        if (username) {
+            displayUserInfo(username); // Display username and logout button if authenticated
+        } else {
+            console.error("Username could not be parsed from the ID token.");
+            showLoginButton(); // If username parsing fails, show login button
+        }
     } else {
         showLoginButton(); // Show login button if not authenticated
     }
 }
 
 function parseUsernameFromIdToken(idToken) {
-    // Decode the ID token (JWT format) to extract the username
-    const payloadBase64 = idToken.split('.')[1];
-    const payloadJson = atob(payloadBase64);
-    const payload = JSON.parse(payloadJson);
-    return payload["cognito:username"] || payload["preferred_username"] || payload["email"];
+    try {
+        // Decode the ID token (JWT format) to extract the username
+        const payloadBase64 = idToken.split('.')[1]; // Get the payload section of the token
+        const payloadJson = atob(payloadBase64); // Decode from base64
+        const payload = JSON.parse(payloadJson); // Parse to JSON
+        return payload["cognito:username"] || payload["preferred_username"] || payload["email"];
+    } catch (error) {
+        console.error("Error parsing ID token:", error);
+        return null;
+    }
 }
 
 function displayUserInfo(username) {
     // Display the username and show the logout button
     document.getElementById('username-display').innerText = `Hello, ${username}`;
+    document.getElementById('username-display').style.display = 'inline'; // Show username
     document.getElementById('auth-section').style.display = 'flex';
     document.getElementById('login-button').style.display = 'none'; // Hide login button
     document.getElementById('logout-button').style.display = 'inline'; // Show logout button
@@ -48,6 +59,7 @@ function displayUserInfo(username) {
 
 function showLoginButton() {
     // Show the login button if the user is not logged in
+    document.getElementById('username-display').style.display = 'none'; // Hide username
     document.getElementById('auth-section').style.display = 'flex';
     document.getElementById('login-button').style.display = 'inline'; // Show login button
     document.getElementById('logout-button').style.display = 'none'; // Hide logout button
