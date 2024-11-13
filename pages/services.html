@@ -8,6 +8,11 @@
 <script src="../auth.js"></script> <!-- Link to shared JavaScript file -->
 </head>
 <body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        enforceAuthentication(); // Redirects to login if user is not authenticated
+    });
+</script>
   <div id="auth-section">
         <button id="login-button" onclick="redirectToLogin()">Login</button>
         <span id="username-display" style="display: none;"></span>
