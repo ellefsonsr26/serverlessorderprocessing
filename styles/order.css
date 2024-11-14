@@ -61,3 +61,45 @@ body {
     border-radius: 5px;      /* Optional: rounded corners */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
 }
+/* Styling for the main heading */
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+/* Container for each product card */
+.product {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin: 8px;
+    border-radius: 8px;
+    max-width: 300px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+/* Hover effect for product card */
+.product:hover {
+    transform: translateY(-5px);
+}
+
+/* Product title */
+.product h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Product description */
+.product p {
+    margin: 4px 0;
+    color: #666;
+}
+
+/* Product price */
+.product .price {
+    font-weight: bold;
+    color: #007bff;
+}
