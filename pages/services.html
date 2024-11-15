@@ -42,49 +42,29 @@
         // Replace with your actual API Gateway URL
         const apiUrl = 'https://s517yim8jj.execute-api.us-east-1.amazonaws.com/Dev/FetchProducts';
 
-        // Function to fetch and display products
-        async function fetchProducts() {
-            try {
-                const response = await fetch(apiUrl);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+     async function fetchProducts() {
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const products = await response.json();
+        console.log("Fetched products:", products); // Add this line for debugging
 
-                const products = await response.json();
-                
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = ''; // Clear any previous content
+        // Display the products
+        const productList = document.getElementById("product-list");
+        productList.innerHTML = products.map(product => `
+            <div class="product">
+                <h2>${product.product_name}</h2>
+                <p>${product.description}</p>
+                <p>Price: $${product.price}</p>
+            </div>
+        `).join("");
+    } catch (error) {
+        console.error("Failed to fetch products:", error);
+    }
+}
 
-                products.forEach(product => {
-                    // Create a product container
-                    const productDiv = document.createElement('div');
-                    productDiv.classList.add('product');
-
-                    // Product name
-                    const name = document.createElement('h2');
-                    name.textContent = product.name;
-                    productDiv.appendChild(name);
-
-                    // Product description
-                    const description = document.createElement('p');
-                    description.textContent = product.description;
-                    productDiv.appendChild(description);
-
-                    // Product price
-                    const price = document.createElement('p');
-                    price.classList.add('price');
-                    price.textContent = `Price: $${product.price}`;
-                    productDiv.appendChild(price);
-
-                    // Add product container to the list
-                    productList.appendChild(productDiv);
-                });
-            } catch (error) {
-                console.error("Failed to fetch products:", error);
-                const productList = document.getElementById('product-list');
-                productList.innerHTML = `<p>Error loading products. Please try again later.</p>`;
-            }
         }
 
         // Fetch products when the page loads
