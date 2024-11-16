@@ -34,14 +34,17 @@ async function fetchProducts() {
                 return;
             }
             container.innerHTML = categories[category]
-                .map(product => `
-                    <div class="product">
-                        <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
-                        <h3>${product.product_name}</h3>
-                        <p>${product.description}</p>
-                        <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
-                    </div>
-                `)
+                .map(product => {
+                    const price = parseFloat(product.price) || 0; // Ensure price is a valid number
+                    return `
+                        <div class="product">
+                            <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
+                            <h3>${product.product_name}</h3>
+                            <p>${product.description}</p>
+                            <p><strong>Price:</strong> $${price.toFixed(2)}</p>
+                        </div>
+                    `;
+                })
                 .join("");
         });
     } catch (error) {
