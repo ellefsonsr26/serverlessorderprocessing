@@ -12,6 +12,30 @@
     <script src="../navbar2.js"></script>
 </head>
 <body>
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        enforceAuthentication(); // Redirects to login if user is not authenticated
+    });
+</script>
+  <div id="auth-section"> <!-- displays login and logout button -->
+        <button id="login-button" onclick="redirectToLogin()">Login</button>
+        <span id="username-display" style="display: none;"></span>
+        <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
+    </div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="pages/services.html">Order</a>
+    <div class="dropdown">
+      <a>Products</a>
+      <div class="dropdown-content">
+        <a href="option1.html">Pepperoni Pizza</a>
+        <a href="option2.html">Barbecue Chicken Pizza</a>
+        <a href="option3.html">Garlic Breadsticks</a>
+      </div>
+    </div>
+    <!-- Placeholder for dynamic admin link -->
+  </div>
     <!-- Error container -->
     <div id="error-container"></div>
 
