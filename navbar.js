@@ -27,6 +27,7 @@ function showAdminLink() {
         navbar.appendChild(adminLink);
     }
 }
-
+console.log("Decoded Token:", decodedToken);
+console.log("User Groups:", decodedToken["cognito:groups"]);
 // Execute on page load
 window.onload = showAdminLink;
