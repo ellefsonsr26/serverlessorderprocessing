@@ -34,36 +34,64 @@
 
   <!-- Content -->
 <h1>Our Products</h1>
-    <div id="product-list">
-        <!-- Products will be displayed here -->
-    </div>
+<div id="products-container">
+    <h2>Pizzas</h2>
+    <div id="category-pizza" class="category"></div>
+
+    <h2>Wings</h2>
+    <div id="category-wings" class="category"></div>
+
+    <h2>Breadsticks</h2>
+    <div id="category-breadsticks" class="category"></div>
+</div>
+
 
     <script>
         // Replace with your actual API Gateway URL
         const apiUrl = 'https://s517yim8jj.execute-api.us-east-1.amazonaws.com/Dev/FetchProducts';
 
-     async function fetchProducts() {
+   async function fetchProducts() {
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
-        const products = await response.json();
-        console.log("Fetched products:", products); // Add this line for debugging
 
-        // Display the products
-        const productList = document.getElementById("product-list");
-        productList.innerHTML = products.map(product => `
-            <div class="product">
-                <h2>${product.product_name}</h2>
-                <p>${product.description}</p>
-                <p>Price: $${product.price}</p>
-            </div>
-        `).join("");
+        const products = await response.json();
+        console.log("Fetched products:", products);
+
+        // Sort products into categories
+        const categories = {
+            Pizza: [],
+            Wings: [],
+            Breadsticks: []
+        };
+
+        products.forEach(product => {
+            if (categories[product.category]) {
+                categories[product.category].push(product);
+            }
+        });
+
+        // Display products by category
+        Object.keys(categories).forEach(category => {
+            const container = document.getElementById(`category-${category.toLowerCase()}`);
+            container.innerHTML = categories[category]
+                .map(product => `
+                    <div class="product">
+                        <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
+                        <h3>${product.product_name}</h3>
+                        <p>${product.description}</p>
+                        <p>Price: $${product.price}</p>
+                    </div>
+                `)
+                .join("");
+        });
     } catch (error) {
         console.error("Failed to fetch products:", error);
     }
 }
+
         // Fetch products when the page loads
         window.onload = fetchProducts;
     </script>
