@@ -12,8 +12,11 @@ function showAdminLink() {
     }
 
     // Decode the token to retrieve user information
+    console.log("Hash Parameters:", window.location.hash);
+    console.log("ID Token:", idToken);
     const decodedToken = jwt_decode(idToken);
     console.log("Decoded Token:", decodedToken);
+    console.log("User Groups:", decodedToken["cognito:groups"]);
 
     // Check for Admin group membership
     const userGroups = decodedToken['cognito:groups'] || [];
@@ -27,7 +30,5 @@ function showAdminLink() {
         navbar.appendChild(adminLink);
     }
 }
-console.log("Decoded Token:", decodedToken);
-console.log("User Groups:", decodedToken["cognito:groups"]);
 // Execute on page load
 window.onload = showAdminLink;
