@@ -140,7 +140,6 @@ h1 {
     margin-top: 20px; /* Adds some space above the container */
     justify-content: flex-start; /* Aligns items to the left (or center if you prefer) */
     padding: 10px; /* Adds padding around the container */
-    border: 1px dashed red; /* Temporary border for debugging (can remove later) */
 }
 
 
