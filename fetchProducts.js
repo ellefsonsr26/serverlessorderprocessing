@@ -18,13 +18,15 @@ async function fetchProducts() {
             Breadsticks: []
         };
 
-        products.forEach(product => {
-            if (categories[product.category]) {
-                categories[product.category].push(product);
-            } else {
-                console.warn(`Unknown category "${product.category}" found in product:`, product);
-            }
-        });
+products.forEach(product => {
+    console.log(`Processing product: ${product.product_name}, Category: ${product.category}`);
+    if (categories[product.category]) {
+        categories[product.category].push(product);
+    } else {
+        console.warn(`Unknown category "${product.category}" found in product:`, product);
+    }
+});
+
 
         // Display products by category
         Object.keys(categories).forEach(category => {
