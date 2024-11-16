@@ -17,7 +17,7 @@ function showAdminLink() {
 
     // Check for Admin group membership
     const userGroups = decodedToken['cognito:groups'] || [];
-    if (userGroups.includes('Admin')) {
+    if (userGroups.includes('ADMIN')) {
         // Create the Admin link and add it to the navbar
         const adminLink = document.createElement("a");
         adminLink.href = adminPageUrl;
