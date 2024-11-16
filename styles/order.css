@@ -130,3 +130,14 @@ h1 {
     font-size: 1.2em;
     margin: 10px 0;
 }
+#category-pizza, #category-wings, #category-breadsticks {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+    height: auto;
+}
+.product {
+    display: block;
+}
+
