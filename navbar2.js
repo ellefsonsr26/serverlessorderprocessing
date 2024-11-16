@@ -27,7 +27,7 @@
                 // Create the Admin link and add it to the navbar
                 const adminLink = document.createElement("a");
                 adminLink.href = "admin.html";
-                adminLink.textContent = "Admin Page";
+                adminLink.textContent = "Admin Inventory";
 
                 const navbar = document.querySelector(".navbar");
                 navbar.appendChild(adminLink);
