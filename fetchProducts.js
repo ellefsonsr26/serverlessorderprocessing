@@ -21,6 +21,8 @@ async function fetchProducts() {
         products.forEach(product => {
             if (categories[product.category]) {
                 categories[product.category].push(product);
+            } else {
+                console.warn(`Unknown category "${product.category}" found in product:`, product);
             }
         });
 
@@ -37,7 +39,7 @@ async function fetchProducts() {
                         <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
                         <h3>${product.product_name}</h3>
                         <p>${product.description}</p>
-                        <p>Price: $${product.price}</p>
+                        <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
                     </div>
                 `)
                 .join("");
