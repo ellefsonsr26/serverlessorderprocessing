@@ -26,7 +26,7 @@
             if (userGroups.includes("ADMIN")) {
                 // Create the Admin link and add it to the navbar
                 const adminLink = document.createElement("a");
-                adminLink.href = "admin.html";
+                adminLink.href = "pages/admin.html";
                 adminLink.textContent = "Admin Page";
 
                 const navbar = document.querySelector(".navbar");
