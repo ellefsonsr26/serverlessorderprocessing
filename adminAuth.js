@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!idToken) {
         console.error("No ID token found. Redirecting to Not Authorized page.");
-        window.location.href = "pages/notAuthorized.html";
+        window.location.href = "notAuthorized.html";
         return;
     }
 
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!userGroups.includes("ADMIN")) {
         console.warn("User is not authorized. Redirecting to Not Authorized page.");
-        window.location.href = "pages/notAuthorized.html";
+        window.location.href = "notAuthorized.html";
         return;
     }
 
