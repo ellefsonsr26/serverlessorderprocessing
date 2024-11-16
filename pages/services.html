@@ -12,110 +12,16 @@
     <script src="../navbar2.js"></script>
 </head>
 <body>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        enforceAuthentication(); // Redirects to login if user is not authenticated
-    });
-</script>
-  <div id="auth-section"> <!-- displays login and logout button -->
-        <button id="login-button" onclick="redirectToLogin()">Login</button>
-        <span id="username-display" style="display: none;"></span>
-        <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
-    </div>
-  <!-- Navbar -->
-  <div class="navbar">
-    <a href="../index.html">Home</a>
-    <a href="pages/services.html">Order</a>
-    <div class="dropdown">
-      <a>Products</a>
-      <div class="dropdown-content">
-        <a href="option1.html">Pepperoni Pizza</a>
-        <a href="option2.html">Barbecue Chicken Pizza</a>
-        <a href="option3.html">Garlic Breadsticks</a>
-      </div>
-    </div>
-    <!-- Placeholder for dynamic admin link -->
-  </div>
+    <!-- Error container -->
+    <div id="error-container"></div>
 
-  <!-- Content -->
-<h1>Our Products</h1>
-<div id="error-container"></div>
-<div id="products-container">
-    <h2>Pizzas</h2>
-    <div id="category-pizza" class="category"></div>
+    <!-- Category containers -->
+    <div id="category-pizza" class="category-container"></div>
+    <div id="category-wings" class="category-container"></div>
+    <div id="category-breadsticks" class="category-container"></div>
 
-    <h2>Wings</h2>
-    <div id="category-wings" class="category"></div>
-
-    <h2>Breadsticks</h2>
-    <div id="category-breadsticks" class="category"></div>
-</div>
-
-
-   <script>
-    // Replace with your actual API Gateway URL
-    const apiUrl = 'https://s517yim8jj.execute-api.us-east-1.amazonaws.com/Dev/FetchProducts';
-
-    async function fetchProducts() {
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-            }
-
-            const products = await response.json();
-            console.log("Fetched products:", products);
-
-            // Sort products into categories
-            const categories = {
-                Pizza: [],
-                Wings: [],
-                Breadsticks: []
-            };
-
-            products.forEach(product => {
-                if (categories[product.category]) {
-                    categories[product.category].push(product);
-                }
-            });
-
-            // Display products by category
-            Object.keys(categories).forEach(category => {
-                const container = document.getElementById(`category-${category.toLowerCase()}`);
-                if (!container) {
-                    console.error(`Container for category "${category}" not found`);
-                    return;
-                }
-                container.innerHTML = categories[category]
-                    .map(product => `
-                        <div class="product">
-                            <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
-                            <h3>${product.product_name}</h3>
-                            <p>${product.description}</p>
-                            <p>Price: $${product.price}</p>
-                        </div>
-                    `)
-                    .join("");
-            });
-        } catch (error) {
-            console.error("Failed to fetch products:", error);
-
-            // Display error message on the page
-            const errorContainer = document.getElementById("error-container");
-            if (errorContainer) {
-                errorContainer.innerHTML = `
-                    <div class="error-message">
-                        <p>There was an issue fetching the products. Please try again later.</p>
-                    </div>
-                `;
-            }
-        }
-    }
-
-    // Fetch products when the page loads
-    window.onload = fetchProducts;
-</script>
-
+    <!-- Include external JavaScript -->
+    <script src="../fetchProducts.js"></script>
 </body>
 </html>
 
