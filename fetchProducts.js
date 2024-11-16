@@ -1,11 +1,10 @@
-// Replace with your actual API Gateway URL
-const apiUrl = 'https://s517yim8jj.execute-api.us-east-1.amazonaws.com/Dev/FetchProducts';
+  const apiUrl = 'https://s517yim8jj.execute-api.us-east-1.amazonaws.com/Dev/FetchProducts';
 
-async function fetchProducts() {
+   async function fetchProducts() {
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText}`);
+            throw new Error("Network response was not ok");
         }
 
         const products = await response.json();
@@ -21,43 +20,27 @@ async function fetchProducts() {
         products.forEach(product => {
             if (categories[product.category]) {
                 categories[product.category].push(product);
-            } else {
-                console.warn(`Unknown category "${product.category}" found in product:`, product);
             }
         });
 
         // Display products by category
         Object.keys(categories).forEach(category => {
-            const container = document.getElementById(`category-${category.toLowerCase()}`);
-            if (!container) {
-                console.error(`Container for category "${category}" not found`);
-                return;
-            }
+            const container = document.getElementById(category-${category.toLowerCase()});
             container.innerHTML = categories[category]
-                .map(product => `
+                .map(product => 
                     <div class="product">
                         <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
                         <h3>${product.product_name}</h3>
                         <p>${product.description}</p>
-                        <p><strong>Price:</strong> $${product.price.toFixed(2)}</p>
+                        <p>Price: $${product.price}</p>
                     </div>
-                `)
+                )
                 .join("");
         });
     } catch (error) {
         console.error("Failed to fetch products:", error);
-
-        // Display error message on the page
-        const errorContainer = document.getElementById("error-container");
-        if (errorContainer) {
-            errorContainer.innerHTML = `
-                <div class="error-message">
-                    <p>There was an issue fetching the products. Please try again later.</p>
-                </div>
-            `;
-        }
     }
 }
 
-// Fetch products when the page loads
-window.onload = fetchProducts;
+        // Fetch products when the page loads
+        window.onload = fetchProducts;
