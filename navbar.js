@@ -1,34 +1,41 @@
-// Import the jwt-decode library
-const adminPageUrl = "pages/admin.html"; // The restricted page for admins
-
-function showAdminLink() {
-    // Extract ID token from the URL fragment (implicit grant flow)
+// Wait for the DOM to load before executing
+document.addEventListener("DOMContentLoaded", () => {
+    // Extract ID token from URL or session storage
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const idToken = hashParams.get('id_token');
+    const idToken = hashParams.get("id_token") || localStorage.getItem("id_token");
 
     if (!idToken) {
         console.error("No ID token found. User might not be logged in.");
         return;
     }
 
-    // Decode the token to retrieve user information
-    console.log("Hash Parameters:", window.location.hash);
-    console.log("ID Token:", idToken);
+    // Store token in local storage for persistence across pages
+    localStorage.setItem("id_token", idToken);
+
+    // Decode the token to retrieve user details
     const decodedToken = jwt_decode(idToken);
     console.log("Decoded Token:", decodedToken);
-    console.log("User Groups:", decodedToken["cognito:groups"]);
 
-    // Check for Admin group membership
-    const userGroups = decodedToken['cognito:groups'] || [];
-    if (userGroups.includes('ADMIN')) {
-        // Create the Admin link and add it to the navbar
+    // Display username next to logout button
+    const usernameDisplay = document.getElementById("username-display");
+    usernameDisplay.textContent = `Hello, ${decodedToken.email || "User"}`;
+    usernameDisplay.style.display = "inline";
+
+    // Check user group membership
+    const userGroups = decodedToken["cognito:groups"] || [];
+    console.log("User Groups:", userGroups);
+
+    if (userGroups.includes("ADMIN")) {
+        // Add Admin link to navbar
         const adminLink = document.createElement("a");
-        adminLink.href = adminPageUrl;
+        adminLink.href = "pages/admin.html";
         adminLink.textContent = "Admin Page";
-
-        const navbar = document.getElementById("navbar");
-        navbar.appendChild(adminLink);
+        document.querySelector(".navbar").appendChild(adminLink);
     }
+});
+
+// Logout function to clear token and redirect to logout
+function logout() {
+    localStorage.removeItem("id_token");
+    window.location.href = "https://your-cognito-logout-url";
 }
-// Execute on page load
-window.onload = showAdminLink;
