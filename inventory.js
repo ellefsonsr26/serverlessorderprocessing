@@ -2,10 +2,12 @@ const apiUrl = 'https://ioifpro2m0.execute-api.us-east-1.amazonaws.com/Dev';
 
 async function fetchStock() {
   try {
-    const response = await fetch(`${apiUrl}?action=getStock`);
+    // Fetch stock data
+    const response = await fetch(`${apiUrl}/Stock?action=getStock`);
     if (!response.ok) throw new Error('Failed to fetch stock levels');
     const products = await response.json();
 
+    // Display stock data
     const stockContainer = document.getElementById('stock-container');
     stockContainer.innerHTML = products.map(product => `
       <div class="product">
@@ -20,6 +22,7 @@ async function fetchStock() {
       </div>
     `).join('');
   } catch (error) {
+    // Handle errors
     document.getElementById('error-container').textContent = error.message;
   }
 }
@@ -32,7 +35,8 @@ async function updateStock(productId) {
   }
 
   try {
-    const response = await fetch(`${apiUrl}?action=updateStock`, {
+    // Update stock via API
+    const response = await fetch(`${apiUrl}/update?action=updateStock`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -46,8 +50,10 @@ async function updateStock(productId) {
     alert('Stock updated successfully');
     fetchStock(); // Refresh stock levels
   } catch (error) {
+    // Handle errors
     alert(error.message);
   }
 }
 
+// Fetch stock levels when the page loads
 window.onload = fetchStock;
