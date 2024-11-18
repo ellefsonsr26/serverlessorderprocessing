@@ -6,12 +6,14 @@ body {
   background-color: #f4f4f9;
   color: #333;
 }
+
 /* Navbar styling */
 .navbar {
   display: flex;
   background-color: #333;
   padding: 10px 20px;
 }
+
 /* Combined styling for links and dropdown main link */
 .navbar a, .dropdown > a {
   color: #f4f4f9;
@@ -20,47 +22,90 @@ body {
   transition: background-color 0.3s ease;
   display: inline-block; /* Ensures "More" aligns with other items */
 }
+
 .navbar a:hover, .dropdown > a:hover {
   background-color: #555;
 }
+
 /* Dropdown container */
 .dropdown {
   position: relative;
 }
+
+/* Modified to support nested menus */
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 100%; /* Positions dropdown directly below the "More" link */
+  top: 100%; /* Positions dropdown directly below the parent */
   left: 0;
   background-color: #333;
   min-width: 160px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
+
+/* New styles for dropdown content links */
 .dropdown-content a {
   color: #f4f4f9;
   padding: 10px 15px;
   display: block;
   text-align: left;
 }
+
 .dropdown-content a:hover {
   background-color: #555;
 }
+
 .dropdown:hover .dropdown-content {
   display: block;
 }
-#auth-section { /* formatting for login logout button */
-    position: absolute;      /* Positions the element absolutely relative to the page */
-    top: 10px;               /* Distance from the top of the page */
-    right: 10px;             /* Distance from the right side of the page */
-    display: flex;           /* Aligns items horizontally */
-    align-items: center;     /* Vertically aligns items */
-    gap: 10px;               /* Adds space between the button and username */
-    background-color: white; /* Optional: background color */
-    padding: 5px 10px;       /* Optional: padding around content */
-    border-radius: 5px;      /* Optional: rounded corners */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
+
+/* New styles for nested submenu */
+.dropdown-submenu {
+  position: relative; /* Allows submenu to position relative to this element */
 }
+
+.submenu-content {
+  display: none; /* Initially hide the submenu */
+  position: absolute;
+  left: 100%; /* Align submenu to the right of the parent */
+  top: 0;
+  background-color: #444; /* Slightly different color for submenus */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-submenu:hover .submenu-content {
+  display: block; /* Show submenu when the parent is hovered */
+}
+
+.submenu-content a {
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+}
+
+.submenu-content a:hover {
+  background-color: #555;
+}
+
+/* Formatting for login/logout buttons */
+#auth-section {
+  position: absolute;      /* Positions the element absolutely relative to the page */
+  top: 10px;               /* Distance from the top of the page */
+  right: 10px;             /* Distance from the right side of the page */
+  display: flex;           /* Aligns items horizontally */
+  align-items: center;     /* Vertically aligns items */
+  gap: 10px;               /* Adds space between the button and username */
+  background-color: white; /* Optional: background color */
+  padding: 5px 10px;       /* Optional: padding around content */
+  border-radius: 5px;      /* Optional: rounded corners */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
+}
+
+/* Styling for the special paragraph */
 #special-paragraph {
   font-size: 1.1em;      /* Slightly larger font */
   line-height: 1.6;      /* Better line spacing */
