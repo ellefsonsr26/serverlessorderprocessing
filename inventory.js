@@ -1,4 +1,4 @@
-const apiUrl = 'https://your-api-gateway-url.amazonaws.com/dev';
+const apiUrl = 'https://ioifpro2m0.execute-api.us-east-1.amazonaws.com/Dev';
 
 async function fetchStock() {
   try {
