@@ -32,7 +32,7 @@ async function updateStock(productId) {
   }
 
   try {
-    const response = await fetch(`${apiBaseUrl}/Stock/update`, { // Adjusted path
+    const response = await fetch(`${apiBaseUrl}/update`, { // Adjusted path
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
