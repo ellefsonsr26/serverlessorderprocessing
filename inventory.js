@@ -31,23 +31,38 @@ async function updateStock(productId) {
     return;
   }
 
+  console.log('Updating stock with:', {
+    product_id: productId,
+    change: parseInt(stockChange, 10),
+    reason: 'Manual update',
+    notes: 'Updated via interface',
+  });
+
   try {
-    const response = await fetch(`${apiBaseUrl}/update`, { // Adjusted path
+    const response = await fetch(`${apiUrl}/update`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         product_id: productId,
         change: parseInt(stockChange, 10),
         reason: 'Manual update',
-        notes: 'Updated via interface'
-      })
+        notes: 'Updated via interface',
+      }),
     });
-    if (!response.ok) throw new Error('Failed to update stock');
+
+    console.log('Server response:', response);
+
+    if (!response.ok) {
+      throw new Error('Failed to update stock');
+    }
+
     alert('Stock updated successfully');
     fetchStock(); // Refresh stock levels
   } catch (error) {
+    console.error('Error updating stock:', error);
     alert(error.message);
   }
 }
+
 
 window.onload = fetchStock;
