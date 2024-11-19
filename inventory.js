@@ -51,30 +51,50 @@ async function updateStock(productId) {
   }
 }
 
-async function showHistory(productId) {
-  try {
-    const response = await fetch(`${apiUrl}/history/${productId}`); // API call to fetch history
-    if (!response.ok) throw new Error('Failed to fetch history');
-    const history = await response.json();
+async function viewHistory(productId) {
+    try {
+        // Fetch history data from the API
+        const response = await fetch(`${apiUrl}/history/${productId}`);
+        if (!response.ok) throw new Error('Failed to fetch history');
 
-    const historyContent = history.map(record => `
-      <div class="history-record">
-        <p><strong>Date:</strong> ${record.date}</p>
-        <p><strong>Change:</strong> ${record.change}</p>
-        <p><strong>Reason:</strong> ${record.reason}</p>
-        <p><strong>Notes:</strong> ${record.notes}</p>
-        <hr>
-      </div>
-    `).join('');
+        const history = await response.json();
 
-    // Display the popup with the history content
-    const popup = document.getElementById('history-popup');
-    const popupContent = document.getElementById('popup-content');
-    popupContent.innerHTML = historyContent || '<p>No history available for this product.</p>';
-    popup.style.display = 'block';
-  } catch (error) {
-    alert(error.message);
-  }
+        // Get the popup and content containers
+        const popup = document.getElementById('history-popup');
+        const content = document.getElementById('history-content');
+
+        if (!popup || !content) {
+            throw new Error('Popup elements are missing in the HTML');
+        }
+
+        // Populate the content with history data
+        content.innerHTML = `
+            <h3>Change History for Product ID: ${productId}</h3>
+            ${history
+                .map(
+                    (item) => `
+                <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd;">
+                    <p><strong>Date:</strong> ${new Date(item.date).toLocaleString()}</p>
+                    <p><strong>Change:</strong> ${item.change}</p>
+                    <p><strong>Reason:</strong> ${item.reason}</p>
+                    <p><strong>Notes:</strong> ${item.notes}</p>
+                </div>
+            `
+                )
+                .join('')}
+        `;
+
+        // Show the popup
+        popup.style.display = 'block';
+
+        // Close popup event
+        const closeButton = document.getElementById('close-popup');
+        closeButton.onclick = () => {
+            popup.style.display = 'none';
+        };
+    } catch (error) {
+        alert(error.message);
+    }
 }
 
 function closePopup() {
