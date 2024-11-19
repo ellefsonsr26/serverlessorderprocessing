@@ -51,7 +51,7 @@ async function updateStock(productId) {
   }
 }
 
-async function viewHistory(productId) {
+async function showHistory(productId) {
     try {
         // Fetch history data from the API
         const response = await fetch(`${apiUrl}/history/${productId}`);
