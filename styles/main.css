@@ -69,8 +69,8 @@ body {
   padding: 20px;              /* Padding around the text */
   border-radius: 8px;         /* Softer rounded corners */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for lift */
-  max-width: 800px;           /* Limit the block's width */
-  margin: 20px auto;          /* Center block and add vertical spacing */
+  max-width: 1000px;           /* Limit the block's width */
+  margin: 20px 10%;          /* Center block and add vertical spacing */
   text-align: justify;        /* Align text for a cleaner look */
 }
 
