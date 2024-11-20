@@ -73,4 +73,6 @@ body {
   margin: 20px 10%;          /* Center block and add vertical spacing */
   text-align: justify;        /* Align text for a cleaner look */
 }
-
+h1 {
+  text-align: center;
+}
