@@ -38,10 +38,27 @@
     <div id="category-wings" class="category-container"></div>
    <h2>Breadsticks</h2>
     <div id="category-breadsticks" class="category-container"></div>
+    <!-- Add cart icon and popup here -->
+    <!-- Cart Icon -->
+    <div id="cart-icon" onclick="toggleCartPopup()">
+        <img src="cart-icon.png" alt="Cart">
+        <span id="cart-count">0</span>
+    </div>
 
+    <!-- Cart Popup -->
+    <div id="cart-popup" class="hidden">
+        <h3>Your Cart</h3>
+        <div id="cart-contents">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+        <p><strong>Total:</strong> $<span id="cart-total">0.00</span></p>
+        <button onclick="checkout()">Checkout</button>
+    </div>
 
     <!-- Include external JavaScript -->
     <script src="../javascript/fetchProducts.js"></script>
+    <script src="../cart.js"></script>
+
 </body>
 </html>
 
