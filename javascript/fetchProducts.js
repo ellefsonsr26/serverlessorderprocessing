@@ -66,26 +66,49 @@ async function fetchProducts() {
     }
 }
 
-async function addToCart(productId, quantity) {
-    const userId = sessionStorage.getItem("user_id"); // Retrieve user_id from session storage
+async function addToCart(productId) {
+    const userId = localStorage.getItem("user_id");
     if (!userId) {
         alert("You must be logged in to add items to the cart.");
         return;
     }
 
-    try {
-        const response = await fetch("https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartadd", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user_id: userId, product_id: productId, quantity }),
-        });
+    // Retrieve quantity from the input field
+    const quantity = parseInt(document.getElementById(`quantity-${productId}`).value, 10);
+    console.log("Quantity to add:", quantity);
 
-        if (!response.ok) throw new Error("Failed to add item to cart");
-        alert("Item added to cart successfully");
-        updateCartIcon(); // Refresh the cart count
+    if (isNaN(quantity) || quantity < 1) {
+        alert("Please enter a valid quantity.");
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartadd`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("id_token")}`,
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    product_id: productId,
+                    quantity: quantity,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to add item to cart");
+        }
+
+        const result = await response.json();
+        console.log("Add to cart result:", result);
+        alert("Item added to cart!");
     } catch (error) {
         console.error("Error adding to cart:", error);
-        alert("Failed to add item to cart. Please try again.");
+        alert("Failed to add item to cart.");
     }
 }
 
