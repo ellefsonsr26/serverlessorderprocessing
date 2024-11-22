@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Automatically update cart count on page load
+    // Initialize cart icon count on page load
     updateCartIcon();
 });
 
@@ -40,14 +40,17 @@ async function loadCart() {
         console.log("Cart data fetched successfully:", cartData);
 
         const cartItems = document.getElementById("cart-items");
-        cartItems.innerHTML = ""; // Clear existing items
 
+        // Clear existing items in the cart popup
+        cartItems.innerHTML = "";
+
+        // Populate the cart with items
         let totalPrice = 0;
-
         cartData.products.forEach((item) => {
             const itemSubtotal = item.quantity * item.product_price;
             totalPrice += itemSubtotal;
 
+            // Create a list item for each cart product
             const listItem = document.createElement("li");
             listItem.className = "cart-item";
             listItem.innerHTML = `
@@ -59,7 +62,7 @@ async function loadCart() {
             cartItems.appendChild(listItem);
         });
 
-        // Add or update the total price section
+        // Ensure only one total price section is displayed
         let totalSection = document.querySelector(".cart-total");
         if (!totalSection) {
             totalSection = document.createElement("div");
@@ -70,14 +73,6 @@ async function loadCart() {
             <span>Total:</span>
             <span>$${totalPrice.toFixed(2)}</span>
         `;
-
-        // Remove any redundant or extra total sections
-        const allCartTotals = document.querySelectorAll(".cart-total");
-        if (allCartTotals.length > 1) {
-            allCartTotals.forEach((section, index) => {
-                if (index > 0) section.remove();
-            });
-        }
 
         // Add or update the checkout button
         let checkoutContainer = document.querySelector(".checkout-container");
@@ -96,13 +91,14 @@ async function loadCart() {
         // Update the cart icon count
         const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
         document.getElementById("cart-count").textContent = totalQuantity;
+
     } catch (error) {
         console.error("Error loading cart:", error);
         alert("Failed to load cart. Please try again later.");
     }
 }
 
-// Function to update the cart count dynamically after adding an item
+// Function to update the cart icon count dynamically
 function updateCartIcon() {
     const userId = sessionStorage.getItem("user_id");
     if (!userId) {
@@ -127,7 +123,14 @@ function updateCartIcon() {
         });
 }
 
-// Function to manually trigger cart updates after adding items
-function addToCartTrigger() {
-    updateCartIcon();
-}
+// Function to close the cart popup when clicking outside of it
+document.addEventListener("click", (event) => {
+    const cartContainer = document.getElementById("cart-container");
+    const cartButton = document.getElementById("cart-button");
+
+    if (cartContainer && cartButton) {
+        if (!cartContainer.contains(event.target) && !cartButton.contains(event.target)) {
+            cartContainer.style.display = "none";
+        }
+    }
+});
