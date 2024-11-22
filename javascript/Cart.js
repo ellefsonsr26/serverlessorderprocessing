@@ -3,7 +3,7 @@ async function updateCartIcon() {
     if (!userId) return;
 
     try {
-        const response = await fetch(`https://your-api-gateway-url/Cart?user_id=${userId}`);
+        const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartadd?user_id=${userId}`);
         if (!response.ok) throw new Error('Failed to fetch cart contents');
 
         const cart = await response.json();
@@ -28,7 +28,7 @@ async function fetchCartContents() {
     if (!userId) return;
 
     try {
-        const response = await fetch(`https://your-api-gateway-url/Cart?user_id=${userId}`);
+        const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartadd?user_id=${userId}`);
         if (!response.ok) throw new Error('Failed to fetch cart contents');
 
         const cart = 
