@@ -109,18 +109,14 @@ async function addToCart(productId, productName, productPrice) {
         console.log("Add to cart result:", result);
         alert("Item added to cart!");
 
-        // Update the cart icon count after adding an item
-        updateCartIcon();
+        // Call updateCartIcon to refresh the cart count
+        if (typeof updateCartIcon === "function") {
+            updateCartIcon();
+        }
     } catch (error) {
         console.error("Error adding to cart:", error);
         alert("Failed to add item to cart.");
     }
-}
-
-// Update the cart icon count after adding an item
-async function updateCartIcon() {
-    console.log("Updating cart icon...");
-    // Implement your logic to update the cart count based on the current cart data
 }
 
 // Fetch products when the page loads
