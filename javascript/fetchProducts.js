@@ -104,22 +104,16 @@ async function addToCart(productId, productName, productPrice) {
         if (!response.ok) {
             throw new Error("Failed to add item to cart");
         }
-
-        const result = await response.json();
+  const result = await response.json();
         console.log("Add to cart result:", result);
         alert("Item added to cart!");
 
-        // Update the cart icon count
-        if (typeof updateCartIcon === "function") {
-            updateCartIcon(); // Call the function from cart.js
-        } else {
-            console.warn("updateCartIcon function not found.");
-        }
+        // Update the cart icon count after adding an item
+        updateCartIcon();
     } catch (error) {
         console.error("Error adding to cart:", error);
         alert("Failed to add item to cart.");
     }
-}
 
 // Fetch products when the page loads
 window.onload = fetchProducts;
