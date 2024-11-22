@@ -74,7 +74,7 @@ async function addToCart(productId, quantity) {
     }
 
     try {
-        const response = await fetch("https://your-api-gateway-url/Cart", {
+        const response = await fetch("https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartadd", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ user_id: userId, product_id: productId, quantity }),
