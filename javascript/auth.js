@@ -25,6 +25,7 @@ function checkUserSession() {
     if (idToken) {
         const username = parseUsernameFromIdToken(idToken);
         if (username) {
+            sessionStorage.setItem("user_id", username); // Store the username as user_id in sessionStorage
             displayUserInfo(username); // Display username and logout button if authenticated
         } else {
             console.error("Username could not be parsed from the ID token.");
@@ -47,7 +48,6 @@ function parseUsernameFromIdToken(idToken) {
         return null;
     }
 }
-
 function displayUserInfo(username) {
     // Display the username and show the logout button
     document.getElementById('username-display').innerText = `Hello, ${username}`;
