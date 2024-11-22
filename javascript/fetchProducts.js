@@ -66,58 +66,29 @@ async function fetchProducts() {
     }
 }
 
-async function addToCart(productId, price) {
-    const userId = localStorage.getItem('user_id');
+async function addToCart(productId, quantity) {
+    const userId = sessionStorage.getItem("user_id"); // Retrieve user_id from session storage
     if (!userId) {
         alert("You must be logged in to add items to the cart.");
         return;
     }
 
-    const quantityInput = document.getElementById(`quantity-${productId}`);
-    const quantity = parseInt(quantityInput.value, 10);
-
-    if (!quantity || quantity <= 0) {
-        alert("Please enter a valid quantity.");
-        return;
-    }
-
     try {
-        const response = await fetch(`${cartApiUrl}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                user_id: userId,
-                product_id: productId,
-                price: price,
-                quantity: quantity
-            })
+        const response = await fetch("https://your-api-gateway-url/Cart", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: userId, product_id: productId, quantity }),
         });
 
-        if (!response.ok) throw new Error('Failed to add item to the cart.');
-
-        alert('Item added to the cart!');
-        updateCartIcon(); // Refresh cart icon
+        if (!response.ok) throw new Error("Failed to add item to cart");
+        alert("Item added to cart successfully");
+        updateCartIcon(); // Refresh the cart count
     } catch (error) {
-        console.error('Failed to add to cart:', error);
-        alert('Failed to add item to the cart. Please try again.');
+        console.error("Error adding to cart:", error);
+        alert("Failed to add item to cart. Please try again.");
     }
 }
 
-async function updateCartIcon() {
-    const userId = localStorage.getItem('user_id');
-    if (!userId) return;
-
-    try {
-        const response = await fetch(`${cartApiUrl}?user_id=${userId}`);
-        if (!response.ok) throw new Error('Failed to fetch cart contents');
-
-        const cart = await response.json();
-        const totalItems = cart.products.reduce((sum, item) => sum + item.quantity, 0);
-        document.getElementById('cart-count').textContent = totalItems;
-    } catch (error) {
-        console.error('Failed to update cart icon:', error);
-    }
-}
 
 // Fetch products when the page loads
 window.onload = fetchProducts;
