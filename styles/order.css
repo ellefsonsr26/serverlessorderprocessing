@@ -254,7 +254,16 @@ h1 {
     margin: 10px 0;
     font-size: 14px;
 }
-
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 10px;
+    border-top: 1px solid #000;
+    margin-top: 10px;
+}
 #cart-container button#close-cart {
     background: none;
     border: none;
