@@ -55,7 +55,10 @@ async function loadCart() {
             const listItem = document.createElement("li");
             listItem.className = "cart-item";
             listItem.innerHTML = `
-                ${item.product_name}..(${item.quantity})...$${itemSubtotal.toFixed(2)}
+                <div class="cart-item-details">
+                    <span class="cart-item-name">${item.product_name} <span class="cart-item-quantity">(${item.quantity})</span></span>
+                    <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
+                </div>
             `;
             cartItems.appendChild(listItem);
         });
@@ -63,18 +66,16 @@ async function loadCart() {
         // Update the total price
         cartTotalValue.textContent = totalPrice.toFixed(2);
 
-        // Update the cart icon count
-        const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
-        document.getElementById("cart-count").textContent = totalQuantity;
-
-        // Add a checkout button
-        const checkoutButton = document.createElement("button");
-        checkoutButton.textContent = "Proceed to Checkout";
-        checkoutButton.className = "checkout-button";
-        checkoutButton.addEventListener("click", () => {
+        // Add a checkout button below the total
+        const checkoutContainer = document.createElement("div");
+        checkoutContainer.className = "checkout-container";
+        checkoutContainer.innerHTML = `
+            <button class="checkout-button">Proceed to Checkout</button>
+        `;
+        checkoutContainer.querySelector(".checkout-button").addEventListener("click", () => {
             window.location.href = "checkout.html";
         });
-        cartItems.appendChild(checkoutButton);
+        cartItems.appendChild(checkoutContainer);
     } catch (error) {
         console.error("Error loading cart:", error);
         alert("Failed to load cart. Please try again later.");
