@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load cart from API using GET
   async function loadCart() {
     try {
-      const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/user_id=${userId}`, {
+      const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
