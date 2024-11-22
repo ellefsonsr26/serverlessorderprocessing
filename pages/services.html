@@ -23,27 +23,25 @@
         <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
     </div>
 <!-- Cart Button -->
-<div id="header-right">
-  <div id="cart-button-container">
+<div id="cart-button-container">
     <button id="cart-button">
-      <i class="fa fa-shopping-cart"></i> Cart <span id="cart-count">0</span>
+        <i class="fa fa-shopping-cart"></i>
+        Cart <span id="cart-count">0</span>
     </button>
-  </div>
+</div>
+<div id="cart-container" class="popup" style="display: none;">
+    <div class="popup-header">
+        <h3>Your Cart</h3>
+        <button class="close-button" onclick="document.getElementById('cart-container').style.display = 'none';">X</button>
+    </div>
+    <ul id="cart-items">
+        <!-- Cart items will be dynamically inserted here -->
+    </ul>
+    <div id="cart-total">
+        <strong>Total:</strong> $<span id="cart-total-value">0.00</span>
+    </div>
 </div>
 
-
-<!-- Cart Popup -->
-<div id="cart-popup" class="popup">
-  <div class="popup-header">
-    <h3>Your Cart</h3>
-    <button id="close-cart">X</button>
-  </div>
-  <ul id="cart-items"></ul>
-  <div class="popup-footer">
-    <p>Total: $<span id="cart-total-value">0.00</span></p>
-  </div>
-</div>
-  
   <!-- Navbar -->
   <div class="navbar">
     <a href="../index.html">Home</a>
