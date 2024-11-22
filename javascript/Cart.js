@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Initial update for the cart count when the page loads
+    updateCartIcon();
 });
 
 // Function to load the cart data from the API and populate the cart
@@ -92,4 +95,6 @@ function updateCartIcon() {
             document.getElementById("cart-count").textContent = totalQuantity;
         })
         .catch(error => {
-            console.error
+            console.error("Failed to update cart icon:", error);
+        });
+}
