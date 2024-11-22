@@ -66,9 +66,8 @@ async function fetchProducts() {
     }
 }
 
-async function addToCart(productId) {
-    // Retrieve the user ID from session storage
-    const userId = sessionStorage.getItem("user_id"); // Using "user_id" as per your storage setup
+async function addToCart(productId, productName, productPrice) {
+    const userId = sessionStorage.getItem("user_id");
     console.log("User ID from session storage:", userId);
 
     if (!userId) {
@@ -76,7 +75,6 @@ async function addToCart(productId) {
         return;
     }
 
-    // Retrieve quantity from the input field
     const quantity = parseInt(document.getElementById(`quantity-${productId}`).value, 10);
     console.log("Quantity to add:", quantity);
 
@@ -92,12 +90,14 @@ async function addToCart(productId) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("id_token")}`, // Assuming you still need the ID token for authentication
+                    Authorization: `Bearer ${localStorage.getItem("id_token")}`,
                 },
                 body: JSON.stringify({
                     user_id: userId,
                     product_id: productId,
                     quantity: quantity,
+                    product_name: productName,
+                    product_price: productPrice,
                 }),
             }
         );
