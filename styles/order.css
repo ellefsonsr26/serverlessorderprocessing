@@ -50,7 +50,7 @@ body {
   display: block;
 }
 #auth-section { /* formatting for login logout button */
-    position: absolute;      /* Positions the element absolutely relative to the page */
+    position: relative;      /* Positions the element absolutely relative to the page */
     top: 10px;               /* Distance from the top of the page */
     right: 10px;             /* Distance from the right side of the page */
     display: flex;           /* Aligns items horizontally */
@@ -176,7 +176,7 @@ h1 {
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: 80px; /* Adjust based on spacing from logout button */
+  right: 20px; /* Adjusted spacing */
   top: 10px;
   z-index: 1000;
 }
@@ -196,7 +196,7 @@ h1 {
 }
 
 #cart-button:hover {
-  background-color: #0056b3;
+   background-color: #0056b3;
 }
 
 #cart-button img {
