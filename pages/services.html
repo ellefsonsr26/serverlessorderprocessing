@@ -22,6 +22,17 @@
         <span id="username-display" style="display: none;"></span>
         <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
     </div>
+  <!-- Add a cart popup container (hidden by default) -->
+<div id="cart-popup" class="hidden">
+  <div id="cart-content">
+    <h3>Your Cart</h3>
+    <ul id="cart-items"></ul>
+    <div id="cart-total">
+      <strong>Total:</strong> $<span id="cart-total-value">0.00</span>
+    </div>
+    <button id="close-cart">Close</button>
+  </div>
+</div>
   <!-- Navbar -->
   <div class="navbar">
     <a href="../index.html">Home</a>
@@ -38,22 +49,6 @@
     <div id="category-wings" class="category-container"></div>
    <h2>Breadsticks</h2>
     <div id="category-breadsticks" class="category-container"></div>
-    <!-- Add cart icon and popup here -->
-    <!-- Cart Icon -->
-    <div id="cart-icon" onclick="toggleCartPopup()">
-        <img src="cart-icon.png" alt="Cart">
-        <span id="cart-count">0</span>
-    </div>
-
-    <!-- Cart Popup -->
-    <div id="cart-popup" class="hidden">
-        <h3>Your Cart</h3>
-        <div id="cart-contents">
-            <!-- Cart items will be dynamically inserted here -->
-        </div>
-        <p><strong>Total:</strong> $<span id="cart-total">0.00</span></p>
-        <button onclick="checkout()">Checkout</button>
-    </div>
 
     <!-- Include external JavaScript -->
     <script src="../javascript/fetchProducts.js"></script>
