@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartButton = document.getElementById("cart-button");
     const cartContainer = document.getElementById("cart-container");
 
+    // Update cart count on page load
+    updateCartIcon();
+
     if (cartButton) {
         cartButton.addEventListener("click", async () => {
             if (cartContainer.style.display === "none" || !cartContainer.style.display) {
@@ -37,7 +40,6 @@ async function loadCart() {
         console.log("Cart data fetched successfully:", cartData);
 
         const cartItems = document.getElementById("cart-items");
-        const cartTotalValue = document.getElementById("cart-total-value");
 
         // Clear existing items in the cart popup
         cartItems.innerHTML = "";
@@ -58,25 +60,31 @@ async function loadCart() {
             cartItems.appendChild(listItem);
         });
 
-        // Add the total price section
-        const totalSection = document.createElement("div");
-        totalSection.className = "cart-total";
+        // Add or update the total price section
+        let totalSection = document.querySelector(".cart-total");
+        if (!totalSection) {
+            totalSection = document.createElement("div");
+            totalSection.className = "cart-total";
+            cartItems.appendChild(totalSection);
+        }
         totalSection.innerHTML = `
             <span>Total:</span>
             <span>$${totalPrice.toFixed(2)}</span>
         `;
-        cartItems.appendChild(totalSection);
 
-        // Add a checkout button below the total
-        const checkoutContainer = document.createElement("div");
-        checkoutContainer.className = "checkout-container";
+        // Add or update the checkout button
+        let checkoutContainer = document.querySelector(".checkout-container");
+        if (!checkoutContainer) {
+            checkoutContainer = document.createElement("div");
+            checkoutContainer.className = "checkout-container";
+            cartItems.appendChild(checkoutContainer);
+        }
         checkoutContainer.innerHTML = `
             <button class="checkout-button">Proceed to Checkout</button>
         `;
         checkoutContainer.querySelector(".checkout-button").addEventListener("click", () => {
             window.location.href = "checkout.html";
         });
-        cartItems.appendChild(checkoutContainer);
 
         // Update the cart icon count
         const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
