@@ -28,29 +28,32 @@ async function fetchProducts() {
             }
         });
 
-        // Display products by category
-        Object.keys(categories).forEach(category => {
-            const container = document.getElementById(`category-${category.toLowerCase()}`);
-            if (!container) {
-                console.error(`Container for category "${category}" not found`);
-                return;
-            }
-            container.innerHTML = categories[category]
-                .map(product => {
-                    const price = parseFloat(product.price) || 0; // Ensure price is a valid number
-                    return `
-                        <div class="product">
-                            <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
-                            <h3>${product.product_name}</h3>
-                            <p>${product.description}</p>
-                            <p><strong>Price:</strong> $${price.toFixed(2)}</p>
-                            <input type="number" id="quantity-${product.product_id}" placeholder="Quantity" min="1">
-                            <button onclick="addToCart(${product.product_id}, ${price.toFixed(2)})">Add to Cart</button>
-                        </div>
-                    `;
-                })
-                .join("");
-        });
+// Display products by category
+Object.keys(categories).forEach(category => {
+    const container = document.getElementById(`category-${category.toLowerCase()}`);
+    if (!container) {
+        console.error(`Container for category "${category}" not found`);
+        return;
+    }
+    container.innerHTML = categories[category]
+        .map(product => {
+            const price = parseFloat(product.price) || 0; // Ensure price is a valid number
+            return `
+                <div class="product">
+                    <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
+                    <h3>${product.product_name}</h3>
+                    <p>${product.description}</p>
+                    <p><strong>Price:</strong> $${price.toFixed(2)}</p>
+                    <input type="number" id="quantity-${product.product_id}" placeholder="Quantity" min="1">
+                    <button onclick="addToCart('${product.product_id}', '${product.product_name}', ${price.toFixed(2)})">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+        })
+        .join("");
+});
+
     } catch (error) {
         console.error("Failed to fetch products:", error);
 
