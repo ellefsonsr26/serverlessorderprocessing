@@ -22,17 +22,25 @@
         <span id="username-display" style="display: none;"></span>
         <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
     </div>
-  <!-- Add a cart popup container (hidden by default) -->
-<div id="cart-popup" class="hidden">
-  <div id="cart-content">
+<!-- Cart Button -->
+<div id="cart-button-container">
+  <button id="cart-button">
+    🛒 Cart <span id="cart-count">0</span>
+  </button>
+</div>
+
+<!-- Cart Popup -->
+<div id="cart-popup" class="popup">
+  <div class="popup-header">
     <h3>Your Cart</h3>
-    <ul id="cart-items"></ul>
-    <div id="cart-total">
-      <strong>Total:</strong> $<span id="cart-total-value">0.00</span>
-    </div>
-    <button id="close-cart">Close</button>
+    <button id="close-cart">X</button>
+  </div>
+  <ul id="cart-items"></ul>
+  <div class="popup-footer">
+    <p>Total: $<span id="cart-total-value">0.00</span></p>
   </div>
 </div>
+  
   <!-- Navbar -->
   <div class="navbar">
     <a href="../index.html">Home</a>
