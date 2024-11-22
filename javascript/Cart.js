@@ -3,9 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartButton = document.getElementById("cart-button");
     const cartContainer = document.getElementById("cart-container");
 
-    // Update cart count on page load
-    updateCartIcon();
-
     if (cartButton) {
         cartButton.addEventListener("click", async () => {
             if (cartContainer.style.display === "none" || !cartContainer.style.display) {
@@ -20,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Automatically update cart count on page load
+    updateCartIcon();
 });
 
 // Function to load the cart data from the API and populate the cart
@@ -30,12 +30,15 @@ async function loadCart() {
             throw new Error("User ID not found in session storage.");
         }
 
+        // Fetch the cart data from the API
         const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch cart: ${response.statusText}`);
         }
 
         const cartData = await response.json();
+        console.log("Cart data fetched successfully:", cartData);
+
         const cartItems = document.getElementById("cart-items");
         cartItems.innerHTML = ""; // Clear existing items
 
@@ -99,3 +102,32 @@ async function loadCart() {
     }
 }
 
+// Function to update the cart count dynamically after adding an item
+function updateCartIcon() {
+    const userId = sessionStorage.getItem("user_id");
+    if (!userId) {
+        console.error("User ID not found in session storage.");
+        return;
+    }
+
+    // Fetch the cart data to update the count
+    fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch cart for update: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(cartData => {
+            const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById("cart-count").textContent = totalQuantity;
+        })
+        .catch(error => {
+            console.error("Error updating cart icon:", error);
+        });
+}
+
+// Function to manually trigger cart updates after adding items
+function addToCartTrigger() {
+    updateCartIcon();
+}
