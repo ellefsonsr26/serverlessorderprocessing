@@ -30,32 +30,28 @@ async function loadCart() {
             throw new Error("User ID not found in session storage.");
         }
 
-        // Fetch the cart data from the API
         const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch cart: ${response.statusText}`);
         }
 
         const cartData = await response.json();
-        console.log("Cart data fetched successfully:", cartData);
-
         const cartItems = document.getElementById("cart-items");
+        cartItems.innerHTML = ""; // Clear existing items
 
-        // Clear existing items in the cart popup
-        cartItems.innerHTML = "";
-
-        // Populate the cart with items
         let totalPrice = 0;
-        cartData.products.forEach(item => {
+
+        cartData.products.forEach((item) => {
             const itemSubtotal = item.quantity * item.product_price;
             totalPrice += itemSubtotal;
 
-            // Create a list item for each cart product
             const listItem = document.createElement("li");
             listItem.className = "cart-item";
             listItem.innerHTML = `
-                <span class="cart-item-name">${item.product_name} <span class="cart-item-quantity">(${item.quantity})</span></span>
-                <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
+                <div class="cart-item-details">
+                    <span class="cart-item-name">${item.product_name} <span class="cart-item-quantity">(${item.quantity})</span></span>
+                    <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
+                </div>
             `;
             cartItems.appendChild(listItem);
         });
@@ -71,6 +67,14 @@ async function loadCart() {
             <span>Total:</span>
             <span>$${totalPrice.toFixed(2)}</span>
         `;
+
+        // Remove any redundant or extra total sections
+        const allCartTotals = document.querySelectorAll(".cart-total");
+        if (allCartTotals.length > 1) {
+            allCartTotals.forEach((section, index) => {
+                if (index > 0) section.remove();
+            });
+        }
 
         // Add or update the checkout button
         let checkoutContainer = document.querySelector(".checkout-container");
@@ -95,27 +99,3 @@ async function loadCart() {
     }
 }
 
-// Function to update the cart count dynamically after adding an item
-function updateCartIcon() {
-    const userId = sessionStorage.getItem("user_id");
-    if (!userId) {
-        console.error("User ID not found in session storage.");
-        return;
-    }
-
-    // Fetch the cart data to update the count
-    fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch cart for update: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .then(cartData => {
-            const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById("cart-count").textContent = totalQuantity;
-        })
-        .catch(error => {
-            console.error("Failed to update cart icon:", error);
-        });
-}
