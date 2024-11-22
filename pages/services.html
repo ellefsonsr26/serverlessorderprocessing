@@ -23,11 +23,16 @@
         <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
     </div>
 <!-- Cart Button -->
-<div id="cart-button-container">
-  <button id="cart-button">
-    🛒 Cart <span id="cart-count">0</span>
-  </button>
+<div id="header-right">
+  <span id="welcome-user">Hello, admin</span>
+  <button id="logout-button">Logout</button>
+  <div id="cart-button-container">
+    <button id="cart-button">
+      <i class="fa fa-shopping-cart"></i> Cart <span id="cart-count">0</span>
+    </button>
+  </div>
 </div>
+
 
 <!-- Cart Popup -->
 <div id="cart-popup" class="popup">
@@ -60,7 +65,7 @@
 
     <!-- Include external JavaScript -->
     <script src="../javascript/fetchProducts.js"></script>
-    <script src="../javascript/cart.js"></script>
+    <script src="../javascript/Cart.js"></script>
 
 </body>
 </html>
