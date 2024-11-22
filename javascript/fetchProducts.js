@@ -67,7 +67,10 @@ async function fetchProducts() {
 }
 
 async function addToCart(productId) {
-    const userId = localStorage.getItem("user_id");
+    // Retrieve the user ID from session storage
+    const userId = sessionStorage.getItem("user_id"); // Using "user_id" as per your storage setup
+    console.log("User ID from session storage:", userId);
+
     if (!userId) {
         alert("You must be logged in to add items to the cart.");
         return;
@@ -89,7 +92,7 @@ async function addToCart(productId) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("id_token")}`,
+                    Authorization: `Bearer ${localStorage.getItem("id_token")}`, // Assuming you still need the ID token for authentication
                 },
                 body: JSON.stringify({
                     user_id: userId,
@@ -111,6 +114,7 @@ async function addToCart(productId) {
         alert("Failed to add item to cart.");
     }
 }
+
 
 
 // Fetch products when the page loads
