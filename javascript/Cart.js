@@ -1,73 +1,95 @@
-// Function to update the cart icon with the total quantity
-async function updateCartIcon() {
-    const userId = sessionStorage.getItem("user_id");
-    if (!userId) return;
+// Wait for the DOM to fully load
+document.addEventListener("DOMContentLoaded", () => {
+    const cartButton = document.getElementById("cart-button");
+    const cartContainer = document.getElementById("cart-container");
 
+    if (cartButton) {
+        cartButton.addEventListener("click", async () => {
+            if (cartContainer.style.display === "none" || !cartContainer.style.display) {
+                try {
+                    await loadCart(); // Fetch and display the cart contents
+                    cartContainer.style.display = "block"; // Show the cart popup
+                } catch (error) {
+                    console.error("Failed to load cart:", error);
+                }
+            } else {
+                cartContainer.style.display = "none"; // Hide the cart popup
+            }
+        });
+    }
+});
+
+// Function to load the cart data from the API and populate the cart
+async function loadCart() {
     try {
-        const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
-        if (!response.ok) throw new Error("Failed to fetch cart contents");
+        const userId = sessionStorage.getItem("user_id");
+        if (!userId) {
+            throw new Error("User ID not found in session storage.");
+        }
 
-        const cart = await response.json();
-        const totalQuantity = cart.products.reduce((sum, item) => sum + item.quantity, 0);
+        // Fetch the cart data from the API
+        const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch cart: ${response.statusText}`);
+        }
+
+        const cartData = await response.json();
+        console.log("Cart data fetched successfully:", cartData);
+
+        const cartItems = document.getElementById("cart-items");
+        const cartTotalValue = document.getElementById("cart-total-value");
+
+        // Clear existing items in the cart popup
+        cartItems.innerHTML = "";
+
+        // Populate the cart with items
+        let totalPrice = 0;
+        cartData.products.forEach(item => {
+            const itemSubtotal = item.quantity * item.product_price;
+            totalPrice += itemSubtotal;
+
+            // Create a list item for each cart product
+            const listItem = document.createElement("li");
+            listItem.className = "cart-item";
+            listItem.innerHTML = `
+                <span class="cart-item-name">${item.product_name}</span>
+                <span class="cart-item-quantity">x${item.quantity}</span>
+                <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
+            `;
+            cartItems.appendChild(listItem);
+        });
+
+        // Update the total price
+        cartTotalValue.textContent = totalPrice.toFixed(2);
+
+        // Update the cart icon count
+        const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
         document.getElementById("cart-count").textContent = totalQuantity;
     } catch (error) {
-        console.error("Failed to update cart icon:", error);
+        console.error("Error loading cart:", error);
+        alert("Failed to load cart. Please try again later.");
     }
 }
 
-// Function to load the cart contents and display the cart popup
-async function loadCart() {
+// Function to update the cart count dynamically after adding an item
+function updateCartIcon() {
     const userId = sessionStorage.getItem("user_id");
     if (!userId) {
-        alert("You must be logged in to view your cart.");
+        console.error("User ID not found in session storage.");
         return;
     }
 
-    try {
-        const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
-        if (!response.ok) throw new Error("Failed to fetch cart contents");
-
-        const cart = await response.json();
-
-        // Format the cart items
-        const cartItemsHtml = cart.products.map((item) => {
-            const subtotal = (item.quantity * item.product_price).toFixed(2);
-            return `
-                <div class="cart-item">
-                    <span>${item.product_name}</span>
-                    <span>(${item.quantity})</span>
-                    <span>$${subtotal}</span>
-                </div>
-            `;
-        }).join("");
-
-        // Calculate the total price
-        const totalPrice = cart.products.reduce((sum, item) => sum + item.quantity * item.product_price, 0).toFixed(2);
-
-        // Update the cart popup
-        const cartContainer = document.getElementById("cart-container");
-        cartContainer.innerHTML = `
-            <h3>Your Cart</h3>
-            ${cartItemsHtml}
-            <div class="cart-total">
-                <strong>Total: $${totalPrice}</strong>
-            </div>
-            <button onclick="proceedToCheckout()">Proceed to Checkout</button>
-        `;
-        cartContainer.style.display = "block";
-    } catch (error) {
-        console.error("Error loading cart:", error);
-        alert("Failed to load cart.");
-    }
-}
-
-// Function to handle the Proceed to Checkout button click
-function proceedToCheckout() {
-    alert("Proceeding to checkout... (You can implement this functionality)");
-}
-
-// Ensure cart icon updates on page load
-window.onload = updateCartIcon;
-
-// Event listener for the cart button click
-document.getElementById("cart-button").addEventListener("click", loadCart);
+    // Fetch the cart data to update the count
+    fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch cart for update: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(cartData => {
+            const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById("cart-count").textContent = totalQuantity;
+        })
+        .catch(error => {
+            console.error
