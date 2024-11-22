@@ -172,33 +172,47 @@ h1 {
 
 /* Cart Button */
 #cart-button-container {
-  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 80px; /* Adjust based on spacing from logout button */
   top: 10px;
-  right: 10px;
   z-index: 1000;
 }
 
 #cart-button {
+  display: flex;
+  align-items: center;
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 12px;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
 #cart-button:hover {
   background-color: #0056b3;
 }
 
+#cart-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
 #cart-count {
   background-color: red;
   color: white;
   border-radius: 50%;
-  padding: 2px 8px;
+  padding: 2px 6px;
   margin-left: 5px;
   font-size: 12px;
+  font-weight: bold;
 }
 
 /* Cart Popup */
@@ -254,3 +268,4 @@ h1 {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
