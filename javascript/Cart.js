@@ -17,9 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    // Initial update for the cart count when the page loads
-    updateCartIcon();
 });
 
 // Function to load the cart data from the API and populate the cart
@@ -55,16 +52,20 @@ async function loadCart() {
             const listItem = document.createElement("li");
             listItem.className = "cart-item";
             listItem.innerHTML = `
-                <div class="cart-item-details">
-                    <span class="cart-item-name">${item.product_name} <span class="cart-item-quantity">(${item.quantity})</span></span>
-                    <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
-                </div>
+                <span class="cart-item-name">${item.product_name} <span class="cart-item-quantity">(${item.quantity})</span></span>
+                <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
             `;
             cartItems.appendChild(listItem);
         });
 
-        // Update the total price
-        cartTotalValue.textContent = totalPrice.toFixed(2);
+        // Add the total price section
+        const totalSection = document.createElement("div");
+        totalSection.className = "cart-total";
+        totalSection.innerHTML = `
+            <span>Total:</span>
+            <span>$${totalPrice.toFixed(2)}</span>
+        `;
+        cartItems.appendChild(totalSection);
 
         // Add a checkout button below the total
         const checkoutContainer = document.createElement("div");
@@ -76,6 +77,10 @@ async function loadCart() {
             window.location.href = "checkout.html";
         });
         cartItems.appendChild(checkoutContainer);
+
+        // Update the cart icon count
+        const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById("cart-count").textContent = totalQuantity;
     } catch (error) {
         console.error("Error loading cart:", error);
         alert("Failed to load cart. Please try again later.");
