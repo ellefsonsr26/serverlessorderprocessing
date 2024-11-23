@@ -126,7 +126,7 @@ async function removeCartItem(productId) {
 
 // Navigate back to the orders page
 function goBackToOrders() {
-    window.location.href = "orders.html";
+    window.location.href = "services.html";
 }
 
 // Proceed to the order confirmation page
