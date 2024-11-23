@@ -5,15 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (cartButton) {
         cartButton.addEventListener("click", async () => {
-            if (cartContainer.style.display === "none" || !cartContainer.style.display) {
-                try {
+            try {
+                if (cartContainer.style.display === "none" || !cartContainer.style.display) {
                     await loadCart(); // Fetch and display the cart contents
                     cartContainer.style.display = "block"; // Show the cart popup
-                } catch (error) {
-                    console.error("Failed to load cart:", error);
+                } else {
+                    cartContainer.style.display = "none"; // Hide the cart popup
                 }
-            } else {
-                cartContainer.style.display = "none"; // Hide the cart popup
+            } catch (error) {
+                console.error("Failed to load cart:", error);
+                alert("Failed to load cart. Please try again.");
             }
         });
     }
@@ -40,6 +41,7 @@ async function loadCart() {
 
         const cartItems = document.getElementById("cart-items");
         const cartTotalValue = document.getElementById("cart-total-value");
+        const checkoutContainer = document.querySelector(".checkout-container");
 
         // Clear existing items in the cart popup
         cartItems.innerHTML = "";
@@ -56,11 +58,11 @@ async function loadCart() {
             listItem.innerHTML = `
                 <div class="cart-item-details">
                     <span class="cart-item-name">${item.product_name}</span>
+                    <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" data-product-id="${item.product_id}">
                     <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
                 </div>
                 <div class="cart-item-controls">
-                    <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" data-product-id="${item.product_id}">
-                    <i class="remove-item-icon" data-product-id="${item.product_id}">🗑️</i>
+                    <span class="remove-item-icon" data-product-id="${item.product_id}">🗑️</span>
                 </div>
             `;
             cartItems.appendChild(listItem);
@@ -69,7 +71,17 @@ async function loadCart() {
         // Update the total price
         cartTotalValue.textContent = totalPrice.toFixed(2);
 
-        // Attach event listeners for quantity changes and removal
+        // Ensure the checkout button and total are displayed
+        if (!checkoutContainer) {
+            const newCheckoutContainer = document.createElement("div");
+            newCheckoutContainer.className = "checkout-container";
+            newCheckoutContainer.innerHTML = `
+                <button class="checkout-button">Proceed to Checkout</button>
+            `;
+            cartContainer.appendChild(newCheckoutContainer);
+        }
+
+        // Attach event listeners for update and remove buttons
         attachCartEventListeners();
     } catch (error) {
         console.error("Error loading cart:", error);
@@ -80,7 +92,7 @@ async function loadCart() {
 // Attach event listeners for updating and removing items in the cart
 function attachCartEventListeners() {
     const quantityInputs = document.querySelectorAll(".cart-item-quantity");
-    const removeIcons = document.querySelectorAll(".remove-item-icon");
+    const removeButtons = document.querySelectorAll(".remove-item-icon");
 
     quantityInputs.forEach(input => {
         input.addEventListener("change", async () => {
@@ -90,25 +102,24 @@ function attachCartEventListeners() {
             if (!isNaN(newQuantity) && newQuantity > 0) {
                 try {
                     await updateCartItem(productId, newQuantity);
-                    loadCart(); // Refresh the cart after updating
+                    await loadCart(); // Refresh the cart after updating
                 } catch (error) {
                     console.error("Failed to update item quantity:", error);
                     alert("Failed to update item quantity. Please try again.");
                 }
             } else {
                 alert("Please enter a valid quantity.");
-                input.value = 1; // Reset to a default valid value
             }
         });
     });
 
-    removeIcons.forEach(icon => {
-        icon.addEventListener("click", async () => {
-            const productId = icon.dataset.productId;
+    removeButtons.forEach(button => {
+        button.addEventListener("click", async () => {
+            const productId = button.dataset.productId;
 
             try {
                 await removeCartItem(productId);
-                loadCart(); // Refresh the cart after removing an item
+                await loadCart(); // Refresh the cart after removing an item
             } catch (error) {
                 console.error("Failed to remove item from cart:", error);
                 alert("Failed to remove item from cart. Please try again.");
@@ -128,7 +139,6 @@ async function updateCartItem(productId, quantity) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionStorage.getItem("id_token")}`,
         },
         body: JSON.stringify({
             user_id: userId,
@@ -154,7 +164,6 @@ async function removeCartItem(productId) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionStorage.getItem("id_token")}`,
         },
         body: JSON.stringify({
             user_id: userId,
@@ -166,4 +175,26 @@ async function removeCartItem(productId) {
         throw new Error("Failed to remove item from cart.");
     }
     console.log(`Item removed from cart: ${productId}`);
+}
+
+// Function to update the cart icon count
+async function updateCartIcon() {
+    const userId = sessionStorage.getItem("user_id");
+    if (!userId) {
+        console.error("User ID not found in session storage.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch cart data for icon update.");
+        }
+
+        const cartData = await response.json();
+        const totalQuantity = cartData.products.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById("cart-count").textContent = totalQuantity;
+    } catch (error) {
+        console.error("Error updating cart icon count:", error);
+    }
 }
