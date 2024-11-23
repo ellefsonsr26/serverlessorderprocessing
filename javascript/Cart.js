@@ -41,7 +41,11 @@ async function loadCart() {
 
         const cartItems = document.getElementById("cart-items");
         const cartTotalValue = document.getElementById("cart-total-value");
-        const checkoutContainer = document.querySelector(".checkout-container");
+
+        // Ensure the cart items and total exist in DOM
+        if (!cartItems || !cartTotalValue) {
+            throw new Error("Required DOM elements for cart are missing.");
+        }
 
         // Clear existing items in the cart popup
         cartItems.innerHTML = "";
@@ -58,11 +62,19 @@ async function loadCart() {
             listItem.innerHTML = `
                 <div class="cart-item-details">
                     <span class="cart-item-name">${item.product_name}</span>
-                    <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" data-product-id="${item.product_id}">
+                    <input
+                        type="number"
+                        class="cart-item-quantity"
+                        value="${item.quantity}"
+                        min="1"
+                        data-product-id="${item.product_id}"
+                    />
                     <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
                 </div>
                 <div class="cart-item-controls">
-                    <span class="remove-item-icon" data-product-id="${item.product_id}">🗑️</span>
+                    <button class="remove-item" data-product-id="${item.product_id}">
+                        <i class="fa fa-trash"></i>
+                    </button>
                 </div>
             `;
             cartItems.appendChild(listItem);
@@ -70,6 +82,14 @@ async function loadCart() {
 
         // Update the total price
         cartTotalValue.textContent = totalPrice.toFixed(2);
+
+        // Attach event listeners for quantity updates and remove buttons
+        attachCartEventListeners();
+    } catch (error) {
+        console.error("Error loading cart:", error);
+        alert("Failed to load cart. Please try again later.");
+    }
+}
 
         // Ensure the checkout button and total are displayed
         if (!checkoutContainer) {
