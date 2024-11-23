@@ -105,6 +105,7 @@ function attachCartEventListeners() {
                 try {
                     await updateCartItem(productId, newQuantity);
                     await loadCart(); // Refresh the cart after updating
+                    updateCartIcon(); // Update the cart icon after quantity change
                 } catch (error) {
                     console.error("Failed to update item quantity:", error);
                     alert("Failed to update item quantity. Please try again.");
@@ -122,6 +123,7 @@ function attachCartEventListeners() {
             try {
                 await removeCartItem(productId);
                 await loadCart(); // Refresh the cart after removing an item
+                updateCartIcon(); // Update the cart icon after item removal
             } catch (error) {
                 console.error("Failed to remove item from cart:", error);
                 alert("Failed to remove item from cart. Please try again.");
