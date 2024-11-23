@@ -8,9 +8,12 @@ body {
 }
 /* Navbar styling */
 .navbar {
-  display: flex;
-  background-color: #333;
-  padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Space out navbar items */
+    align-items: center;           /* Align items vertically */
+    background-color: #333;        /* Black navbar background */
+    padding: 10px 20px;
+    color: #f4f4f9;
 }
 /* Combined styling for links and dropdown main link */
 .navbar a, .dropdown > a {
@@ -50,16 +53,13 @@ body {
   display: block;
 }
 #auth-section { /* formatting for login logout button */
-    position: absolute;      /* Positions the element absolutely relative to the page */
-    top: 10px;               /* Distance from the top of the page */
-    right: 10px;             /* Distance from the right side of the page */
-    display: flex;           /* Aligns items horizontally */
-    align-items: center;     /* Vertically aligns items */
-    gap: 10px;               /* Adds space between the button, cart, and username */
-    background-color: white; /* Optional: background color */
-    padding: 5px 10px;       /* Optional: padding around content */
-    border-radius: 5px;      /* Optional: rounded corners */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
+    display: flex;                 /* Align items horizontally */
+    align-items: center;           /* Center items vertically */
+    gap: 10px;                     /* Space between elements */
+    background-color: transparent; /* Make it blend into the navbar */
+    padding: 0;                    /* Remove extra padding */
+    box-shadow: none;              /* Remove shadow */
+    position: static;              /* Let it flow naturally inside the navbar */
 }
 /* Styling for the main heading */
 h1 {
@@ -282,10 +282,9 @@ h1 {
     font-weight: bold;
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    margin-left: 10px; /* Adjust the spacing between the cart button and logout */
 }
 
 #cart-button:hover {
