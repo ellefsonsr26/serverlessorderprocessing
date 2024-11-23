@@ -1,0 +1,101 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.navbar h1 {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+#back-to-orders {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#back-to-orders:hover {
+    background-color: #0056b3;
+}
+
+/* Checkout Container */
+#checkout-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Cart Table */
+#cart-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#cart-table th,
+#cart-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+#cart-table th {
+    background-color: #f4f4f9;
+    font-weight: bold;
+}
+
+/* Checkout Summary */
+#checkout-summary {
+    text-align: right;
+    margin-top: 20px;
+}
+
+#checkout-summary p {
+    font-size: 1.2em;
+}
+
+#proceed-to-confirmation {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#proceed-to-confirmation:hover {
+    background-color: #0056b3;
+}
+
+/* Quantity Input */
+.cart-item-quantity {
+    width: 50px;
+    text-align: center;
+}
+
+/* Trash Icon */
+.remove-item {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
