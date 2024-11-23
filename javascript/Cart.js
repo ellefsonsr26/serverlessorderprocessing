@@ -18,9 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-});
 
-updateCartIcon();
+    updateCartIcon();
+});
 
 // Function to load the cart data from the API and populate the cart
 async function loadCart() {
@@ -43,7 +43,7 @@ async function loadCart() {
         const cartTotalValue = document.getElementById("cart-total-value");
 
         // Ensure the cart items and total exist in DOM
-        if (!cartItems) {
+        if (!cartItems || !cartTotalValue) {
             throw new Error("Required DOM elements for cart are missing.");
         }
 
@@ -73,7 +73,7 @@ async function loadCart() {
                 </div>
                 <div class="cart-item-controls">
                     <button class="remove-item" data-product-id="${item.product_id}">
-                        <i class="fa fa-trash"></i>
+                        🗑️
                     </button>
                 </div>
             `;
@@ -81,24 +81,7 @@ async function loadCart() {
         });
 
         // Update the total price
-        const totalContainer = document.createElement("div");
-        totalContainer.className = "cart-total";
-        totalContainer.innerHTML = `
-            <strong>Total:</strong> <span id="cart-total-value">$${totalPrice.toFixed(2)}</span>
-        `;
-        cartItems.appendChild(totalContainer);
-
-        // Ensure the checkout button exists
-        const existingCheckoutButton = document.querySelector(".checkout-button");
-        if (!existingCheckoutButton) {
-            const checkoutButton = document.createElement("button");
-            checkoutButton.className = "checkout-button";
-            checkoutButton.textContent = "Proceed to Checkout";
-            checkoutButton.addEventListener("click", () => {
-                window.location.href = "checkout.html";
-            });
-            cartItems.appendChild(checkoutButton);
-        }
+        cartTotalValue.textContent = totalPrice.toFixed(2);
 
         // Attach event listeners for quantity updates and remove buttons
         attachCartEventListeners();
