@@ -29,7 +29,7 @@ async function loadCart() {
         }
 
         // Fetch the cart data from the API
-        const response = await fetch(`https://<api-id>.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
+        const response = await fetch('https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch cart: ${response.statusText}`);
         }
@@ -124,7 +124,7 @@ async function updateCartItem(productId, quantity) {
         throw new Error("User ID not found in session storage.");
     }
 
-    const response = await fetch(`https://<api-id>.execute-api.us-east-1.amazonaws.com/Dev/Cartupdate`, {
+    const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartquantity`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -149,7 +149,7 @@ async function removeCartItem(productId) {
         throw new Error("User ID not found in session storage.");
     }
 
-    const response = await fetch(`https://<api-id>.execute-api.us-east-1.amazonaws.com/Dev/Cartremove`, {
+    const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartremove`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
