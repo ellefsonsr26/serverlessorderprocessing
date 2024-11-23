@@ -55,13 +55,12 @@ async function loadCart() {
             listItem.className = "cart-item";
             listItem.innerHTML = `
                 <div class="cart-item-details">
-                    <span class="cart-item-name">${item.product_name} (${item.quantity})</span>
+                    <span class="cart-item-name">${item.product_name}</span>
                     <span class="cart-item-subtotal">$${itemSubtotal.toFixed(2)}</span>
                 </div>
                 <div class="cart-item-controls">
                     <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" data-product-id="${item.product_id}">
-                    <button class="update-quantity" data-product-id="${item.product_id}">Update</button>
-                    <button class="remove-item" data-product-id="${item.product_id}">Remove</button>
+                    <i class="remove-item-icon" data-product-id="${item.product_id}">🗑️</i>
                 </div>
             `;
             cartItems.appendChild(listItem);
@@ -70,7 +69,7 @@ async function loadCart() {
         // Update the total price
         cartTotalValue.textContent = totalPrice.toFixed(2);
 
-        // Attach event listeners for update and remove buttons
+        // Attach event listeners for quantity changes and removal
         attachCartEventListeners();
     } catch (error) {
         console.error("Error loading cart:", error);
@@ -80,14 +79,13 @@ async function loadCart() {
 
 // Attach event listeners for updating and removing items in the cart
 function attachCartEventListeners() {
-    const updateButtons = document.querySelectorAll(".update-quantity");
-    const removeButtons = document.querySelectorAll(".remove-item");
+    const quantityInputs = document.querySelectorAll(".cart-item-quantity");
+    const removeIcons = document.querySelectorAll(".remove-item-icon");
 
-    updateButtons.forEach(button => {
-        button.addEventListener("click", async () => {
-            const productId = button.dataset.productId;
-            const quantityInput = document.querySelector(`.cart-item-quantity[data-product-id="${productId}"]`);
-            const newQuantity = parseInt(quantityInput.value, 10);
+    quantityInputs.forEach(input => {
+        input.addEventListener("change", async () => {
+            const productId = input.dataset.productId;
+            const newQuantity = parseInt(input.value, 10);
 
             if (!isNaN(newQuantity) && newQuantity > 0) {
                 try {
@@ -99,13 +97,14 @@ function attachCartEventListeners() {
                 }
             } else {
                 alert("Please enter a valid quantity.");
+                input.value = 1; // Reset to a default valid value
             }
         });
     });
 
-    removeButtons.forEach(button => {
-        button.addEventListener("click", async () => {
-            const productId = button.dataset.productId;
+    removeIcons.forEach(icon => {
+        icon.addEventListener("click", async () => {
+            const productId = icon.dataset.productId;
 
             try {
                 await removeCartItem(productId);
