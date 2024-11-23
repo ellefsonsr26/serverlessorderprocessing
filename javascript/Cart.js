@@ -43,7 +43,7 @@ async function loadCart() {
         const cartTotalValue = document.getElementById("cart-total-value");
 
         // Ensure the cart items and total exist in DOM
-        if (!cartItems || !cartTotalValue) {
+        if (!cartItems) {
             throw new Error("Required DOM elements for cart are missing.");
         }
 
@@ -81,27 +81,26 @@ async function loadCart() {
         });
 
         // Update the total price
-        cartTotalValue.textContent = totalPrice.toFixed(2);
+        const totalContainer = document.createElement("div");
+        totalContainer.className = "cart-total";
+        totalContainer.innerHTML = `
+            <strong>Total:</strong> <span id="cart-total-value">$${totalPrice.toFixed(2)}</span>
+        `;
+        cartItems.appendChild(totalContainer);
 
-        // Attach event listeners for quantity updates and remove buttons
-        attachCartEventListeners();
-    } catch (error) {
-        console.error("Error loading cart:", error);
-        alert("Failed to load cart. Please try again later.");
-    }
-}
-
-        // Ensure the checkout button and total are displayed
-        if (!checkoutContainer) {
-            const newCheckoutContainer = document.createElement("div");
-            newCheckoutContainer.className = "checkout-container";
-            newCheckoutContainer.innerHTML = `
-                <button class="checkout-button">Proceed to Checkout</button>
-            `;
-            cartContainer.appendChild(newCheckoutContainer);
+        // Ensure the checkout button exists
+        const existingCheckoutButton = document.querySelector(".checkout-button");
+        if (!existingCheckoutButton) {
+            const checkoutButton = document.createElement("button");
+            checkoutButton.className = "checkout-button";
+            checkoutButton.textContent = "Proceed to Checkout";
+            checkoutButton.addEventListener("click", () => {
+                window.location.href = "checkout.html";
+            });
+            cartItems.appendChild(checkoutButton);
         }
 
-        // Attach event listeners for update and remove buttons
+        // Attach event listeners for quantity updates and remove buttons
         attachCartEventListeners();
     } catch (error) {
         console.error("Error loading cart:", error);
@@ -112,7 +111,7 @@ async function loadCart() {
 // Attach event listeners for updating and removing items in the cart
 function attachCartEventListeners() {
     const quantityInputs = document.querySelectorAll(".cart-item-quantity");
-    const removeButtons = document.querySelectorAll(".remove-item-icon");
+    const removeButtons = document.querySelectorAll(".remove-item");
 
     quantityInputs.forEach(input => {
         input.addEventListener("change", async () => {
