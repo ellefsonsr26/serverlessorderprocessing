@@ -55,7 +55,7 @@ body {
     right: 10px;             /* Distance from the right side of the page */
     display: flex;           /* Aligns items horizontally */
     align-items: center;     /* Vertically aligns items */
-    gap: 10px;               /* Adds space between the button and username */
+    gap: 10px;               /* Adds space between the button, cart, and username */
     background-color: white; /* Optional: background color */
     padding: 5px 10px;       /* Optional: padding around content */
     border-radius: 5px;      /* Optional: rounded corners */
@@ -273,9 +273,6 @@ h1 {
 
 /* Cart button styling */
 #cart-button {
-    position: fixed;
-    top: 15px;
-    right: 20px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -288,6 +285,7 @@ h1 {
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 999;
+    margin-left: 10px; /* Adjust the spacing between the cart button and logout */
 }
 
 #cart-button:hover {
