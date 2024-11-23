@@ -6,14 +6,12 @@ body {
   background-color: #f4f4f9;
   color: #333;
 }
-
 /* Navbar styling */
 .navbar {
   display: flex;
   background-color: #333;
   padding: 10px 20px;
 }
-
 /* Combined styling for links and dropdown main link */
 .navbar a, .dropdown > a {
   color: #f4f4f9;
@@ -22,16 +20,13 @@ body {
   transition: background-color 0.3s ease;
   display: inline-block; /* Ensures "More" aligns with other items */
 }
-
 .navbar a:hover, .dropdown > a:hover {
   background-color: #555;
 }
-
 /* Dropdown container */
 .dropdown {
   position: relative;
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -42,69 +37,109 @@ body {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-
 .dropdown-content a {
   color: #f4f4f9;
   padding: 10px 15px;
   display: block;
   text-align: left;
 }
-
 .dropdown-content a:hover {
   background-color: #555;
 }
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
-#auth-section {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+#auth-section { /* formatting for login logout button */
+    position: absolute;      /* Positions the element absolutely relative to the page */
+    top: 10px;               /* Distance from the top of the page */
+    right: 10px;             /* Distance from the right side of the page */
+    display: flex;           /* Aligns items horizontally */
+    align-items: center;     /* Vertically aligns items */
+    gap: 10px;               /* Adds space between the button and username */
+    background-color: white; /* Optional: background color */
+    padding: 5px 10px;       /* Optional: padding around content */
+    border-radius: 5px;      /* Optional: rounded corners */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
 }
-
 /* Styling for the main heading */
 h1 {
-  text-align: center;
-  font-size: 2em;
-  margin: 20px 0;
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
 }
 
-/* Product container */
+/* Container for each product card */
 .product {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin: 8px;
-  border-radius: 8px;
-  max-width: 300px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin: 8px;
+    border-radius: 8px;
+    max-width: 300px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
 }
 
+/* Hover effect for product card */
 .product:hover {
-  transform: translateY(-5px);
+    transform: translateY(-5px);
 }
 
-/* Product details */
+/* Product title */
+.product h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Product description */
+.product p {
+    margin: 4px 0;
+    color: #666;
+}
+
+/* Product price */
+.product .price {
+    font-weight: bold;
+    color: #007bff;
+}
+.category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.product {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .product img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-  margin-bottom: 10px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .product h3 {
-  font-size: 1.2em;
-  margin: 10px 0;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+.category-container {
+    display: flex; /* Enables horizontal alignment */
+    flex-wrap: wrap; /* Allows items to wrap to the next row if needed */
+    gap: 20px; /* Adds spacing between product cards */
+    margin-top: 20px; /* Adds some space above the container */
+    justify-content: flex-start; /* Aligns items to the left (or center if you prefer) */
+    padding: 10px; /* Adds padding around the container */
 }
 
 /* Cart Button */
