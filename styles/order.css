@@ -213,6 +213,7 @@ h1 {
 
 .cart-item {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
@@ -226,43 +227,63 @@ h1 {
 .cart-item-details {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    align-items: center;
+    width: 100%;
+}
+
+.cart-item-name {
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .cart-item-quantity {
-    width: 40px;
+    width: 50px;
+    margin: 0 10px;
     text-align: center;
-    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px;
+    font-size: 14px;
+}
+
+.cart-item-subtotal {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 .cart-item-controls {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
 }
 
-.remove-item-icon {
+.cart-item-controls .remove-item {
+    background: none;
+    border: none;
     cursor: pointer;
-    font-size: 16px;
     color: red;
-    transition: color 0.2s;
+    font-size: 16px;
 }
 
-.remove-item-icon:hover {
+.cart-item-controls .remove-item:hover {
     color: darkred;
 }
 
-/* Cart Total and Checkout */
 .cart-total {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 16px;
     font-weight: bold;
-    border-top: 2px solid #333;
     padding-top: 10px;
+    border-top: 1px solid #000;
     margin-top: 10px;
 }
 
+/* Checkout button container */
 .checkout-container {
     text-align: center;
     margin-top: 15px;
@@ -274,28 +295,40 @@ h1 {
     border: none;
     padding: 10px 20px;
     font-size: 14px;
-    border-radius: 4px;
     cursor: pointer;
-    width: 100%;
+    border-radius: 4px;
 }
 
 .checkout-button:hover {
     background-color: #0056b3;
 }
 
-/* Styling for quantity input */
-.cart-item-quantity {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    width: 50px;
-    padding: 4px;
-    text-align: center;
-    font-size: 14px;
+/* Close Button */
+#cart-container .close-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
-.cart-item-quantity:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+#cart-container .close-button:hover {
+    color: red;
 }
+
+/* Trash Icon */
+.cart-item-controls .remove-item i {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+
+.cart-item-controls .remove-item i:hover {
+    color: darkred;
+}
+
 
