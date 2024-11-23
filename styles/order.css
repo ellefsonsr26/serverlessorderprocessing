@@ -310,5 +310,16 @@ h1 {
     top: -5px;
     right: -5px;
 }
+.cart-item-controls button.remove-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ff0000; /* Red for the trash icon */
+}
+
+.cart-item-controls button.remove-item:hover {
+    color: #cc0000; /* Darker red on hover */
+}
 
 
