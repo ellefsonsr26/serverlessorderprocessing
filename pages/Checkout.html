@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="checkout" href="../styles/checkout.css">
+    <script src="../javascript/checkout.js" defer></script>
+</head>
+<body>
+    <div class="navbar">
+        <button id="back-to-orders" onclick="goBackToOrders()">← Back to Orders</button>
+        <h1>Checkout</h1>
+    </div>
+
+    <div id="checkout-container">
+        <div id="cart-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="checkout-items">
+                    <!-- Items dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div id="checkout-summary">
+            <p><strong>Cart Total:</strong> $<span id="checkout-total-value">0.00</span></p>
+            <button id="proceed-to-confirmation">Proceed to Confirmation</button>
+        </div>
+    </div>
+</body>
+</html>
