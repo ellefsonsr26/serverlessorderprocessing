@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 updateCartIcon();
+
 // Function to load the cart data from the API and populate the cart
 async function loadCart() {
     try {
@@ -29,7 +30,7 @@ async function loadCart() {
         }
 
         // Fetch the cart data from the API
-        const response = await fetch('https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
+        const response = await fetch(`https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay/${userId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch cart: ${response.statusText}`);
         }
@@ -91,7 +92,7 @@ function attachCartEventListeners() {
             if (!isNaN(newQuantity) && newQuantity > 0) {
                 try {
                     await updateCartItem(productId, newQuantity);
-                    await loadCart(); // Refresh the cart after updating
+                    loadCart(); // Refresh the cart after updating
                 } catch (error) {
                     console.error("Failed to update item quantity:", error);
                     alert("Failed to update item quantity. Please try again.");
@@ -108,7 +109,7 @@ function attachCartEventListeners() {
 
             try {
                 await removeCartItem(productId);
-                await loadCart(); // Refresh the cart after removing an item
+                loadCart(); // Refresh the cart after removing an item
             } catch (error) {
                 console.error("Failed to remove item from cart:", error);
                 alert("Failed to remove item from cart. Please try again.");
@@ -128,6 +129,7 @@ async function updateCartItem(productId, quantity) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("id_token")}`,
         },
         body: JSON.stringify({
             user_id: userId,
@@ -153,6 +155,7 @@ async function removeCartItem(productId) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("id_token")}`,
         },
         body: JSON.stringify({
             user_id: userId,
