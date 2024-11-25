@@ -1,3 +1,5 @@
+const API_URL = "https://p1ur4uzfyg.execute-api.us-east-1.amazonaws.com/dev";
+
 document.addEventListener("DOMContentLoaded", () => {
     const placeOrderButton = document.getElementById("place-order-button");
 
@@ -72,15 +74,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (!finalizeResponse.ok) {
-                    throw new Error("Failed to finalize the order.");
+                    const errorData = await finalizeResponse.json();
+                    throw new Error(
+                        `Failed to finalize the order: ${errorData.message || "Unknown error"}`
+                    );
                 }
 
                 const finalizeData = await finalizeResponse.json();
                 console.log("Order finalized successfully:", finalizeData);
 
                 // Step 3: Display the confirmation number
-                alert(`Order placed successfully! Confirmation Number: ${finalizeData.confirmation_number}`);
-                window.location.href = "https://dsuse8fg02nie.cloudfront.net/pages/services.html"; // Redirect back to orders page
+                alert(
+                    `Order placed successfully! Confirmation Number: ${finalizeData.confirmation_number}`
+                );
+                window.location.href =
+                    "https://dsuse8fg02nie.cloudfront.net/pages/services.html"; // Redirect back to orders page
             } catch (error) {
                 console.error("Error placing order:", error);
                 alert(`Failed to place order. ${error.message}`);
