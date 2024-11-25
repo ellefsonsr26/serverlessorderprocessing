@@ -6,10 +6,14 @@ document.getElementById("place-order-button").addEventListener("click", async ()
     const cardNumber = document.getElementById("card-number").value;
     const expiryDate = document.getElementById("expiry-date").value;
     const cvv = document.getElementById("cvv").value;
+    const shippingAddress = document.getElementById("shipping-address").value;
+    const city = document.getElementById("city").value;
+    const zipcode = document.getElementById("zipcode").value;
+    const state = document.getElementById("state").value;
 
-    // Ensure payment fields are filled out
-    if (!cardNumber || !expiryDate || !cvv) {
-        alert("Please fill out all payment information.");
+    // Ensure payment and shipping fields are filled out
+    if (!cardNumber || !expiryDate || !cvv || !shippingAddress || !city || !zipcode || !state) {
+        alert("Please fill out all required fields.");
         return;
     }
 
@@ -17,6 +21,18 @@ document.getElementById("place-order-button").addEventListener("click", async ()
         const userId = sessionStorage.getItem("user_id");
         if (!userId) {
             throw new Error("User is not logged in.");
+        }
+
+        // Map shipping options to their corresponding prices
+        const shippingPrices = {
+            Standard: 0,
+            Express: 20,
+            Teleportation: 150,
+        };
+
+        const shippingPrice = shippingPrices[shippingOption];
+        if (shippingPrice === undefined) {
+            throw new Error("Invalid shipping option selected.");
         }
 
         // Step 1: Validate and Deduct Stock
@@ -38,7 +54,16 @@ document.getElementById("place-order-button").addEventListener("click", async ()
         // Step 2: Finalize Order
         const finalizePayload = {
             user_id: userId,
-            shipping_option: shippingOption,
+            shipping_option: {
+                method: shippingOption,
+                price: shippingPrice,
+            },
+            shipping_address: {
+                address: shippingAddress,
+                city: city,
+                state: state,
+                zipcode: zipcode,
+            },
             payment_info: {
                 card_number: cardNumber,
                 expiry_date: expiryDate,
@@ -69,6 +94,7 @@ document.getElementById("place-order-button").addEventListener("click", async ()
         document.getElementById("place-order-button").style.display = "none";
         document.getElementById("shipping-options").style.display = "none";
         document.getElementById("payment-info").style.display = "none";
+        document.getElementById("shipping-info").style.display = "none";
     } catch (error) {
         console.error("Error placing order:", error);
         alert(`Failed to place order. ${error.message}`);
