@@ -1,4 +1,5 @@
 const API_URL = "https://p1ur4uzfyg.execute-api.us-east-1.amazonaws.com/dev";
+const CART_URL = "https://8ogmb8m09d.execute-api.us-east-1.amazonaws.com/Dev/Cartdisplay"; // Retrieve cart API URL
 
 // Event listener for placing the order
 document.getElementById("place-order-button").addEventListener("click", async (e) => {
@@ -33,7 +34,27 @@ document.getElementById("place-order-button").addEventListener("click", async (e
             throw new Error("User is not logged in or email is missing.");
         }
 
-        // Step 1: Validate and Deduct Stock
+        // Step 1: Retrieve Cart Details
+        const cartResponse = await fetch(`${CART_URL}/${userId}`);
+        if (!cartResponse.ok) {
+            throw new Error("Failed to retrieve cart details.");
+        }
+
+        const cartData = await cartResponse.json();
+        const orderItems = cartData.products.map((product) => ({
+            name: product.product_name,
+            quantity: product.quantity,
+            price: product.product_price,
+            subtotal: product.product_price * product.quantity,
+        }));
+
+        const itemsTotal = orderItems.reduce((sum, item) => sum + item.subtotal, 0);
+        const totalPrice = itemsTotal + shippingDetails.price;
+
+        console.log("Retrieved cart details:", orderItems);
+        console.log("Total price:", totalPrice);
+
+        // Step 2: Validate and Deduct Stock
         const validateResponse = await fetch(`${API_URL}/Validateanddeduct`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -45,7 +66,7 @@ document.getElementById("place-order-button").addEventListener("click", async (e
             throw new Error(`Stock validation failed: ${errorData.message || "Unknown error"}`);
         }
 
-        // Step 2: Finalize Order
+        // Step 3: Finalize Order
         const finalizePayload = {
             user_id: userId,
             shipping_option: shippingDetails,
@@ -65,14 +86,14 @@ document.getElementById("place-order-button").addEventListener("click", async (e
 
         const finalizeData = await finalizeResponse.json();
 
-        // Step 3: Send Email Notification
+        // Step 4: Send Email Notification
         const emailPayload = {
             user_email: userEmail,
             order_confirmation: finalizeData.confirmation_number,
             shipping_details: shippingDetails,
             shipping_address: shippingAddress,
-            order_items: finalizeData.order_items, // Include order items from the finalize response
-            total_price: finalizeData.total_price, // Include total price from the finalize response
+            order_items: orderItems, // Include order items
+            total_price: totalPrice, // Include total price
         };
 
         const emailResponse = await fetch(`${API_URL}/Email`, {
