@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="confirmation.css">
+    <script defer src="confirmation.js"></script>
+</head>
+<body>
+    <div id="confirmation-container">
+        <h1>Finalize Your Order</h1>
+        
+        <div id="shipping-options">
+            <h2>Select Shipping Option</h2>
+            <label>
+                <input type="radio" name="shipping-option" value="Standard" checked>
+                Standard (5-7 business days)
+            </label>
+            <label>
+                <input type="radio" name="shipping-option" value="Express">
+                Express (2-3 business days)
+            </label>
+            <label>
+                <input type="radio" name="shipping-option" value="Instant Teleportation">
+                Instant Teleportation (same day)
+            </label>
+        </div>
+
+        <div id="payment-info">
+            <h2>Payment Information</h2>
+            <input type="text" id="card-number" placeholder="Card Number">
+            <input type="text" id="expiry-date" placeholder="Expiry Date (MM/YY)">
+            <input type="text" id="cvv" placeholder="CVV">
+        </div>
+
+        <button id="place-order-button">Place Order</button>
+
+        <div id="confirmation-message" style="display: none;">
+            <h2>Order Placed Successfully!</h2>
+            <p>Your order confirmation number is: <span id="confirmation-number"></span></p>
+            <button id="back-to-orders-button">Back to Orders</button>
+        </div>
+    </div>
+</body>
+</html>
