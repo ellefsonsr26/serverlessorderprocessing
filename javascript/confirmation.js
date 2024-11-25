@@ -77,5 +77,5 @@ document.getElementById("place-order-button").addEventListener("click", async ()
 
 // Event listener for navigating back to the orders page
 document.getElementById("back-to-orders-button").addEventListener("click", () => {
-    window.location.href = `https://dsuse8fg02nie.cloudfront.net/pages/services`; // Adjust route if necessary
+    window.location.href = `https://dsuse8fg02nie.cloudfront.net/pages/services.html`; // Adjust route if necessary
 });
