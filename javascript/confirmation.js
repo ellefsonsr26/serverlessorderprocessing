@@ -71,6 +71,8 @@ document.getElementById("place-order-button").addEventListener("click", async (e
             order_confirmation: finalizeData.confirmation_number,
             shipping_details: shippingDetails,
             shipping_address: shippingAddress,
+            order_items: finalizeData.order_items, // Include order items from the finalize response
+            total_price: finalizeData.total_price, // Include total price from the finalize response
         };
 
         const emailResponse = await fetch(`${API_URL}/Email`, {
