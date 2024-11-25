@@ -19,8 +19,24 @@ document.getElementById("place-order-button").addEventListener("click", async ()
             throw new Error("User is not logged in.");
         }
 
-        // Prepare the payload for the FinalizeOrder Lambda
-        const payload = {
+        // Step 1: Validate and Deduct Stock
+        const validateResponse = await fetch(`${API_URL}/Validateanddeductstock`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id: userId }),
+        });
+
+        if (!validateResponse.ok) {
+            const errorData = await validateResponse.json();
+            throw new Error(`Stock validation failed: ${errorData.message || "Unknown error"}`);
+        }
+
+        console.log("Stock validated and deducted successfully.");
+
+        // Step 2: Finalize Order
+        const finalizePayload = {
             user_id: userId,
             shipping_option: shippingOption,
             payment_info: {
@@ -30,23 +46,23 @@ document.getElementById("place-order-button").addEventListener("click", async ()
             },
         };
 
-        const response = await fetch(`${API_URL}/FinalizeOrder`, {
+        const finalizeResponse = await fetch(`${API_URL}/Finalizeorder`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(finalizePayload),
         });
 
-        if (!response.ok) {
-            throw new Error("Failed to place the order.");
+        if (!finalizeResponse.ok) {
+            throw new Error("Failed to finalize the order.");
         }
 
-        const responseData = await response.json();
-        console.log("Order placed successfully:", responseData);
+        const finalizeData = await finalizeResponse.json();
+        console.log("Order finalized successfully:", finalizeData);
 
-        // Display the confirmation message and number
-        document.getElementById("confirmation-number").textContent = responseData.confirmation_number;
+        // Step 3: Display the confirmation number
+        document.getElementById("confirmation-number").textContent = finalizeData.confirmation_number;
         document.getElementById("confirmation-message").style.display = "block";
 
         // Hide the place order section
@@ -55,7 +71,7 @@ document.getElementById("place-order-button").addEventListener("click", async ()
         document.getElementById("payment-info").style.display = "none";
     } catch (error) {
         console.error("Error placing order:", error);
-        alert("Failed to place order. Please try again.");
+        alert(`Failed to place order. ${error.message}`);
     }
 });
 
