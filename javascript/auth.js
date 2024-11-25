@@ -23,46 +23,53 @@ function checkUserSession() {
     // Check if the user is logged in by looking for the ID token
     const idToken = sessionStorage.getItem("id_token");
     if (idToken) {
-        const username = parseUsernameFromIdToken(idToken);
-        if (username) {
-            sessionStorage.setItem("user_id", username); // Store the username as user_id in sessionStorage
-            displayUserInfo(username); // Display username and logout button if authenticated
+        const userInfo = parseUserInfoFromIdToken(idToken);
+        if (userInfo) {
+            sessionStorage.setItem("user_id", userInfo.username); // Store the username as user_id in sessionStorage
+            sessionStorage.setItem("user_email", userInfo.email); // Store the user's email in sessionStorage
+            displayUserInfo(userInfo.username); // Display username and logout button if authenticated
         } else {
-            console.error("Username could not be parsed from the ID token.");
-            showLoginButton(); // If username parsing fails, show login button
+            console.error("User info could not be parsed from the ID token.");
+            showLoginButton(); // If parsing fails, show login button
         }
     } else {
         showLoginButton(); // Show login button if not authenticated
     }
 }
 
-function parseUsernameFromIdToken(idToken) {
+function parseUserInfoFromIdToken(idToken) {
     try {
-        // Decode the ID token (JWT format) to extract the username
-        const payloadBase64 = idToken.split('.')[1]; // Get the payload section of the token
+        // Decode the ID token (JWT format) to extract the user info
+        const payloadBase64 = idToken.split(".")[1]; // Get the payload section of the token
         const payloadJson = atob(payloadBase64); // Decode from base64
         const payload = JSON.parse(payloadJson); // Parse to JSON
-        return payload["cognito:username"] || payload["preferred_username"] || payload["email"];
+
+        // Extract relevant fields from the token
+        const username = payload["cognito:username"] || payload["preferred_username"] || payload["email"];
+        const email = payload["email"]; // Get the user's email address
+
+        return { username, email };
     } catch (error) {
         console.error("Error parsing ID token:", error);
         return null;
     }
 }
+
 function displayUserInfo(username) {
     // Display the username and show the logout button
-    document.getElementById('username-display').innerText = `Hello, ${username}`;
-    document.getElementById('username-display').style.display = 'inline'; // Show username
-    document.getElementById('auth-section').style.display = 'flex';
-    document.getElementById('login-button').style.display = 'none'; // Hide login button
-    document.getElementById('logout-button').style.display = 'inline'; // Show logout button
+    document.getElementById("username-display").innerText = `Hello, ${username}`;
+    document.getElementById("username-display").style.display = "inline"; // Show username
+    document.getElementById("auth-section").style.display = "flex";
+    document.getElementById("login-button").style.display = "none"; // Hide login button
+    document.getElementById("logout-button").style.display = "inline"; // Show logout button
 }
 
 function showLoginButton() {
     // Show the login button if the user is not logged in
-    document.getElementById('username-display').style.display = 'none'; // Hide username
-    document.getElementById('auth-section').style.display = 'flex';
-    document.getElementById('login-button').style.display = 'inline'; // Show login button
-    document.getElementById('logout-button').style.display = 'none'; // Hide logout button
+    document.getElementById("username-display").style.display = "none"; // Hide username
+    document.getElementById("auth-section").style.display = "flex";
+    document.getElementById("login-button").style.display = "inline"; // Show login button
+    document.getElementById("logout-button").style.display = "none"; // Hide logout button
 }
 
 function redirectToLogin() {
@@ -75,9 +82,11 @@ function logout() {
     // Clear session tokens and redirect to Cognito logout URL
     sessionStorage.removeItem("id_token");
     sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("user_email"); // Remove email from session storage
     const cognitoLogoutUrl = "https://s3verification.auth.us-east-1.amazoncognito.com/logout?client_id=dn60bjb6uq8osji8j5bghlkpt&logout_uri=https://dsuse8fg02nie.cloudfront.net/logout-success.html";
     window.location.href = cognitoLogoutUrl;
 }
+
 function enforceAuthentication() {
     const idToken = sessionStorage.getItem("id_token");
 
