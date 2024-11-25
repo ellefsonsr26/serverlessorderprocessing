@@ -20,7 +20,7 @@ document.getElementById("place-order-button").addEventListener("click", async ()
         }
 
         // Step 1: Validate and Deduct Stock
-        const validateResponse = await fetch(`${API_URL}/Validateanddeductstock`, {
+        const validateResponse = await fetch(`${API_URL}/Validateanddeduct`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
