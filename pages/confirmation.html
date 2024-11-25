@@ -8,9 +8,10 @@
     <script defer src="../javascript/confirmation.js"></script>
 </head>
 <body>
-   <div class="order-confirmation-container">
+<div class="order-confirmation-container">
     <h2>Order Confirmation</h2>
     <form id="order-form">
+        <!-- Shipping Address -->
         <div class="shipping-address">
             <h3>Shipping Address</h3>
             <label for="address">Address:</label>
@@ -23,6 +24,7 @@
             <input type="text" id="zipcode" name="zipcode" required />
         </div>
 
+        <!-- Shipping Options -->
         <div class="shipping-options">
             <h3>Shipping Options</h3>
             <label>
@@ -39,6 +41,7 @@
             </label>
         </div>
 
+        <!-- Payment Information -->
         <div class="payment-info">
             <h3>Payment Information</h3>
             <label for="card-number">Card Number:</label>
@@ -51,7 +54,14 @@
 
         <button type="submit" id="place-order-button">Place Order</button>
     </form>
+
+    <div id="confirmation-message" style="display: none;">
+        <h3>Order Placed Successfully!</h3>
+        <p>Your confirmation number is: <span id="confirmation-number"></span></p>
+        <button id="back-to-orders-button">Back to Orders</button>
+    </div>
 </div>
+
 
 </body>
 </html>
