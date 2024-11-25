@@ -27,8 +27,10 @@ document.getElementById("place-order-button").addEventListener("click", async (e
 
     try {
         const userId = sessionStorage.getItem("user_id");
-        if (!userId) {
-            throw new Error("User is not logged in.");
+        const userEmail = sessionStorage.getItem("user_email"); // Retrieve user email from session storage
+
+        if (!userId || !userEmail) {
+            throw new Error("User is not logged in or email is missing.");
         }
 
         // Step 1: Validate and Deduct Stock
@@ -62,6 +64,26 @@ document.getElementById("place-order-button").addEventListener("click", async (e
         }
 
         const finalizeData = await finalizeResponse.json();
+
+        // Step 3: Send Email Notification
+        const emailPayload = {
+            user_email: userEmail,
+            order_confirmation: finalizeData.confirmation_number,
+            shipping_details: shippingDetails,
+            shipping_address: shippingAddress,
+        };
+
+        const emailResponse = await fetch(`${API_URL}/Email`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(emailPayload),
+        });
+
+        if (!emailResponse.ok) {
+            throw new Error("Failed to send confirmation email.");
+        }
+
+        console.log("Confirmation email sent successfully.");
 
         // Hide the form and display the confirmation message
         document.getElementById("order-form").style.display = "none";
