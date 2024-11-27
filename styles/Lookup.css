@@ -73,79 +73,67 @@ body {
     color: #333;
 }
 
-/* Heading styles */
-.order-lookup-container h1 {
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #444;
-}
-
-.order-lookup-container h2 {
-    font-size: 22px;
-    margin: 20px 0 10px;
-    color: #444;
-}
-
-/* Input and button styling */
-.order-lookup-form {
-    text-align: center;
+/* Lookup Form Styling */
+#lookup-order-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.order-lookup-form input[type="text"] {
-    padding: 8px;
-    width: 70%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+#confirmation-number {
+    padding: 10px;
     font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex-grow: 1;
     margin-right: 10px;
 }
 
-.order-lookup-form button {
-    padding: 8px 16px;
+#lookup-button {
+    padding: 10px 20px;
+    font-size: 16px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.order-lookup-form button:hover {
+#lookup-button:hover {
     background-color: #0056b3;
 }
 
-/* Styling for the order details */
+/* Order Details Section */
 .order-details {
     margin-top: 20px;
 }
 
-.order-details p {
-    font-size: 16px;
-    line-height: 1.6;
+.order-details h3 {
+    margin-top: 0;
     margin-bottom: 10px;
-}
-
-.order-details strong {
-    font-weight: bold;
+    font-size: 18px;
     color: #333;
 }
 
-/* Table styling */
+.order-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* Order Items Table Styling */
 .order-items-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 10px;
     margin-top: 20px;
     font-size: 16px;
     text-align: left;
 }
 
-.order-items-table th, 
+.order-items-table th,
 .order-items-table td {
-    padding: 12px 10px;
+    padding: 12px 15px;
     border: 1px solid #ddd;
 }
 
@@ -153,29 +141,58 @@ body {
     background-color: #007bff;
     color: #fff;
     font-weight: bold;
+    text-align: left;
 }
 
-.order-items-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+.order-items-table td {
+    background-color: #fff;
 }
 
-.order-items-table tr:hover {
+.order-items-table tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}
+
+.order-items-table tr:hover td {
     background-color: #e6f7ff;
 }
 
-/* Total price styling */
+.order-items-table td:nth-child(2), 
+.order-items-table td:nth-child(3), 
+.order-items-table td:nth-child(4) {
+    text-align: right;
+}
+
+/* Total Price Styling */
 .total-price {
     text-align: right;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: #333;
+    padding-top: 10px;
+    border-top: 2px solid #ddd;
 }
 
-/* Center align the order container */
-.order-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    #confirmation-number {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+
+    #lookup-order-form {
+        flex-direction: column;
+    }
+
+    .order-items-table th, .order-items-table td {
+        font-size: 14px;
+    }
+
+    .total-price {
+        font-size: 18px;
+    }
 }
