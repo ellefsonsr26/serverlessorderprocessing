@@ -1,141 +1,205 @@
-/* Basic styling for the page */
+/* General styling for the page */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f9;
-  color: #333;
-}
-/* Navbar styling */
-.navbar {
-  display: flex;
-  background-color: #333;
-  padding: 10px 20px;
-}
-/* Combined styling for links and dropdown main link */
-.navbar a, .dropdown > a {
-  color: #f4f4f9;
-  padding: 10px 15px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  display: inline-block; /* Ensures "More" aligns with other items */
-}
-.navbar a:hover, .dropdown > a:hover {
-  background-color: #555;
-}
-/* Dropdown container */
-.dropdown {
-  position: relative;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%; /* Positions dropdown directly below the "More" link */
-  left: 0;
-  background-color: #333;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-.dropdown-content a {
-  color: #f4f4f9;
-  padding: 10px 15px;
-  display: block;
-  text-align: left;
-}
-.dropdown-content a:hover {
-  background-color: #555;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-#auth-section { /* formatting for login logout button */
-    position: absolute;      /* Positions the element absolutely relative to the page */
-    top: 10px;               /* Distance from the top of the page */
-    right: 10px;             /* Distance from the right side of the page */
-    display: flex;           /* Aligns items horizontally */
-    align-items: center;     /* Vertically aligns items */
-    gap: 10px;               /* Adds space between the button and username */
-    background-color: white; /* Optional: background color */
-    padding: 5px 10px;       /* Optional: padding around content */
-    border-radius: 5px;      /* Optional: rounded corners */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
-}
-.order-details {
-    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
 }
 
-.order-details h3 {
-    font-size: 20px;
+/* Container for the lookup form and results */
+.order-lookup-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+h2, h3, h4 {
+    color: #007bff;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 28px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 22px;
     margin-bottom: 10px;
 }
 
-.order-details p {
+h4 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Form styling */
+#order-lookup-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+#confirmation-number-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 200px;
+    transition: border-color 0.3s;
+}
+
+#confirmation-number-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#lookup-order-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#lookup-order-button:hover {
+    background-color: #0056b3;
+}
+
+/* Order Details Section */
+#order-details {
+    margin-top: 20px;
+}
+
+#order-details p {
     margin: 5px 0;
     font-size: 16px;
 }
 
-.order-items-table {
+#order-details strong {
+    color: #555;
+}
+
+/* Order Items Table */
+#order-items-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 15px; /* Increased spacing between rows */
     margin-top: 20px;
+    border-collapse: collapse;
     font-size: 16px;
+    color: #333;
     text-align: left;
 }
 
-.order-items-table th,
-.order-items-table td {
-    padding: 15px 20px; /* Increased padding for better readability */
+#order-items-table th,
+#order-items-table td {
+    padding: 12px 15px;
     border: 1px solid #ddd;
 }
 
-.order-items-table th {
+#order-items-table th {
     background-color: #007bff;
     color: #fff;
     font-weight: bold;
     text-align: left;
 }
 
-.order-items-table td {
-    background-color: #fff;
-}
-
-.order-items-table tr:nth-child(even) td {
+#order-items-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.order-items-table tr:hover td {
+#order-items-table tr:hover {
     background-color: #e6f7ff;
 }
 
-.order-items-table td:nth-child(2), 
-.order-items-table td:nth-child(3), 
-.order-items-table td:nth-child(4) {
-    text-align: right;
-}
-
-.total-price {
-    text-align: right;
-    font-size: 18px;
+/* Total price styling */
+#order-total {
+    font-size: 20px;
     font-weight: bold;
-    margin-top: 15px;
+    text-align: right;
+    margin-top: 10px;
+    display: block;
 }
 
-.error-message {
+/* Error message styling */
+#error-message, #order-error {
     color: #d9534f;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 4px;
+    font-size: 16px;
     margin-top: 20px;
+    text-align: center;
 }
 
+/* Success message */
 .success-message {
     color: #155724;
-    background: #d4edda;
-    border: 1px solid #c3e6cb;
+    background-color: #d4edda;
     padding: 10px;
+    border: 1px solid #c3e6cb;
     border-radius: 4px;
     margin-top: 20px;
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    background-color: #333;
+    padding: 10px 20px;
+    justify-content: space-between;
+}
+
+.navbar a, .dropdown > a {
+    color: #f4f4f9;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover, .dropdown > a:hover {
+    background-color: #555;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 15px;
+    color: #fff;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#auth-section {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
