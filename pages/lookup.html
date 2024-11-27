@@ -9,9 +9,14 @@
     <!-- Include the jwt-decode library -->
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <!-- Link to the external navbar script -->
-    <script src="../javascript/navbar.js"></script>
+    <script src="../javascript/navbar2.js"></script>
 </head>
 <body>
+       <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        enforceAuthentication(); // Redirects to login if user is not authenticated
+    });
+</script>
   <div id="auth-section"> <!-- displays login and logout button -->
         <button id="login-button" onclick="redirectToLogin()">Login</button>
         <span id="username-display" style="display: none;"></span>
