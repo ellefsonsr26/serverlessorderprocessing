@@ -1,0 +1,120 @@
+/* Basic styling for the page */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+/* Navbar styling */
+.navbar {
+  display: flex;
+  background-color: #333;
+  padding: 10px 20px;
+}
+/* Combined styling for links and dropdown main link */
+.navbar a, .dropdown > a {
+  color: #f4f4f9;
+  padding: 10px 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: inline-block; /* Ensures "More" aligns with other items */
+}
+.navbar a:hover, .dropdown > a:hover {
+  background-color: #555;
+}
+/* Dropdown container */
+.dropdown {
+  position: relative;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%; /* Positions dropdown directly below the "More" link */
+  left: 0;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #f4f4f9;
+  padding: 10px 15px;
+  display: block;
+  text-align: left;
+}
+.dropdown-content a:hover {
+  background-color: #555;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+#auth-section { /* formatting for login logout button */
+    position: absolute;      /* Positions the element absolutely relative to the page */
+    top: 10px;               /* Distance from the top of the page */
+    right: 10px;             /* Distance from the right side of the page */
+    display: flex;           /* Aligns items horizontally */
+    align-items: center;     /* Vertically aligns items */
+    gap: 10px;               /* Adds space between the button and username */
+    background-color: white; /* Optional: background color */
+    padding: 5px 10px;       /* Optional: padding around content */
+    border-radius: 5px;      /* Optional: rounded corners */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
+}
+.order-lookup-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.order-lookup-container h2 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+#order-lookup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#order-lookup-form input,
+#order-lookup-form button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#order-lookup-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#order-lookup-form button:hover {
+    background-color: #45a049;
+}
+
+#order-items-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#order-items-table th,
+#order-items-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#order-items-table th {
+    background-color: #4CAF50;
+    color: white;
+}
