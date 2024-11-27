@@ -61,59 +61,13 @@ body {
     border-radius: 5px;      /* Optional: rounded corners */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
 }
-/* Styling for the order lookup container */
-.order-lookup-container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    color: #333;
-}
-
-/* Lookup Form Styling */
-#lookup-order-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#confirmation-number {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    flex-grow: 1;
-    margin-right: 10px;
-}
-
-#lookup-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#lookup-button:hover {
-    background-color: #0056b3;
-}
-
-/* Order Details Section */
 .order-details {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .order-details h3 {
-    margin-top: 0;
+    font-size: 20px;
     margin-bottom: 10px;
-    font-size: 18px;
-    color: #333;
 }
 
 .order-details p {
@@ -121,11 +75,10 @@ body {
     font-size: 16px;
 }
 
-/* Order Items Table Styling */
 .order-items-table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 10px;
+    border-spacing: 0 15px; /* Increased spacing between rows */
     margin-top: 20px;
     font-size: 16px;
     text-align: left;
@@ -133,7 +86,7 @@ body {
 
 .order-items-table th,
 .order-items-table td {
-    padding: 12px 15px;
+    padding: 15px 20px; /* Increased padding for better readability */
     border: 1px solid #ddd;
 }
 
@@ -162,37 +115,27 @@ body {
     text-align: right;
 }
 
-/* Total Price Styling */
 .total-price {
     text-align: right;
-    margin-top: 20px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    color: #333;
-    padding-top: 10px;
-    border-top: 2px solid #ddd;
+    margin-top: 15px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
+.error-message {
+    color: #d9534f;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
 
-    #confirmation-number {
-        margin-bottom: 10px;
-        margin-right: 0;
-    }
-
-    #lookup-order-form {
-        flex-direction: column;
-    }
-
-    .order-items-table th, .order-items-table td {
-        font-size: 14px;
-    }
-
-    .total-price {
-        font-size: 18px;
-    }
+.success-message {
+    color: #155724;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
 }
