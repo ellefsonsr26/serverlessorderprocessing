@@ -1,14 +1,67 @@
-/* General styling for the page */
+/* Basic styling for the page */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
 }
-
-/* Container for the lookup form and results */
+/* Navbar styling */
+.navbar {
+  display: flex;
+  background-color: #333;
+  padding: 10px 20px;
+}
+/* Combined styling for links and dropdown main link */
+.navbar a, .dropdown > a {
+  color: #f4f4f9;
+  padding: 10px 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: inline-block; /* Ensures "More" aligns with other items */
+}
+.navbar a:hover, .dropdown > a:hover {
+  background-color: #555;
+}
+/* Dropdown container */
+.dropdown {
+  position: relative;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%; /* Positions dropdown directly below the "More" link */
+  left: 0;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #f4f4f9;
+  padding: 10px 15px;
+  display: block;
+  text-align: left;
+}
+.dropdown-content a:hover {
+  background-color: #555;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+#auth-section { /* formatting for login logout button */
+    position: absolute;      /* Positions the element absolutely relative to the page */
+    top: 10px;               /* Distance from the top of the page */
+    right: 10px;             /* Distance from the right side of the page */
+    display: flex;           /* Aligns items horizontally */
+    align-items: center;     /* Vertically aligns items */
+    gap: 10px;               /* Adds space between the button and username */
+    background-color: white; /* Optional: background color */
+    padding: 5px 10px;       /* Optional: padding around content */
+    border-radius: 5px;      /* Optional: rounded corners */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
+}
+/* Order Lookup Container */
 .order-lookup-container {
     max-width: 900px;
     margin: 50px auto;
@@ -18,36 +71,27 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading styles */
-h2, h3, h4 {
-    color: #007bff;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-h2 {
-    font-size: 28px;
+/* Heading Styles */
+.order-lookup-container h2 {
     text-align: center;
+    color: #007bff;
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
-h3 {
-    font-size: 22px;
+.order-lookup-container h3,
+.order-lookup-container h4 {
+    color: #333;
     margin-bottom: 10px;
+    font-size: 20px;
 }
 
-h4 {
-    font-size: 18px;
-    margin-top: 20px;
-}
-
-/* Form styling */
+/* Form Styling */
 #order-lookup-form {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     gap: 10px;
-    margin-bottom: 30px;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 #confirmation-number-input {
@@ -56,7 +100,7 @@ h4 {
     border: 1px solid #ccc;
     border-radius: 4px;
     flex: 1;
-    min-width: 200px;
+    min-width: 250px;
     transition: border-color 0.3s;
 }
 
@@ -86,8 +130,8 @@ h4 {
 }
 
 #order-details p {
-    margin: 5px 0;
     font-size: 16px;
+    margin: 5px 0;
 }
 
 #order-details strong {
@@ -106,7 +150,7 @@ h4 {
 
 #order-items-table th,
 #order-items-table td {
-    padding: 12px 15px;
+    padding: 12px 15px; /* Increased padding for better spacing */
     border: 1px solid #ddd;
 }
 
@@ -114,7 +158,6 @@ h4 {
     background-color: #007bff;
     color: #fff;
     font-weight: bold;
-    text-align: left;
 }
 
 #order-items-table tr:nth-child(even) {
@@ -125,81 +168,19 @@ h4 {
     background-color: #e6f7ff;
 }
 
-/* Total price styling */
+/* Total Price Styling */
 #order-total {
     font-size: 20px;
     font-weight: bold;
+    margin-top: 15px;
     text-align: right;
-    margin-top: 10px;
     display: block;
 }
 
-/* Error message styling */
-#error-message, #order-error {
+/* Error Message Styling */
+#order-error {
     color: #d9534f;
     font-size: 16px;
     margin-top: 20px;
     text-align: center;
-}
-
-/* Success message */
-.success-message {
-    color: #155724;
-    background-color: #d4edda;
-    padding: 10px;
-    border: 1px solid #c3e6cb;
-    border-radius: 4px;
-    margin-top: 20px;
-    text-align: center;
-}
-
-/* Navbar */
-.navbar {
-    display: flex;
-    background-color: #333;
-    padding: 10px 20px;
-    justify-content: space-between;
-}
-
-.navbar a, .dropdown > a {
-    color: #f4f4f9;
-    padding: 10px 15px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-.navbar a:hover, .dropdown > a:hover {
-    background-color: #555;
-}
-
-.dropdown {
-    position: relative;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-content a {
-    display: block;
-    padding: 10px 15px;
-    color: #fff;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-#auth-section {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
