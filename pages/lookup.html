@@ -33,7 +33,36 @@
   </div>
 
   <!-- Content -->
-    <p>filler</p>
+<div class="order-lookup-container">
+    <h2>Lookup Your Order</h2>
+    <form id="order-lookup-form">
+        <label for="confirmation-number-input">Enter Confirmation Number:</label>
+        <input type="text" id="confirmation-number-input" placeholder="CONF-XXXXX" required />
+        <button type="submit" id="lookup-order-button">Lookup Order</button>
+    </form>
+    <div id="order-details" style="display: none;">
+        <h3>Order Details</h3>
+        <p><strong>Confirmation Number:</strong> <span id="order-confirmation"></span></p>
+        <p><strong>Shipping Option:</strong> <span id="order-shipping"></span></p>
+        <p><strong>Shipping Address:</strong></p>
+        <p id="order-address"></p>
+        <h4>Order Items:</h4>
+        <table id="order-items-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <h4>Total Price: $<span id="order-total"></span></h4>
+    </div>
+    <div id="order-error" style="display: none; color: red;"></div>
+</div>
+
   </div>
 </body>
 </html>
