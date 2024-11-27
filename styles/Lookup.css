@@ -61,60 +61,121 @@ body {
     border-radius: 5px;      /* Optional: rounded corners */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional: shadow for visibility */
 }
+/* Styling for the order lookup container */
 .order-lookup-container {
-    max-width: 600px;
+    width: 60%;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #f9f9f9;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
-    line-height: 1.6;
+    color: #333;
+}
+
+/* Heading styles */
+.order-lookup-container h1 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
 }
 
 .order-lookup-container h2 {
-    text-align: center;
-    color: #4CAF50;
+    font-size: 22px;
+    margin: 20px 0 10px;
+    color: #444;
 }
 
-#order-lookup-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+/* Input and button styling */
+.order-lookup-form {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-#order-lookup-form input,
-#order-lookup-form button {
-    padding: 10px;
+.order-lookup-form input[type="text"] {
+    padding: 8px;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     font-size: 16px;
+    margin-right: 10px;
 }
 
-#order-lookup-form button {
-    background-color: #4CAF50;
-    color: white;
+.order-lookup-form button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#order-lookup-form button:hover {
-    background-color: #45a049;
+.order-lookup-form button:hover {
+    background-color: #0056b3;
 }
 
-#order-items-table {
+/* Styling for the order details */
+.order-details {
+    margin-top: 20px;
+}
+
+.order-details p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.order-details strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Table styling */
+.order-items-table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: left;
 }
 
-#order-items-table th,
-#order-items-table td {
+.order-items-table th, 
+.order-items-table td {
+    padding: 12px 10px;
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
 }
 
-#order-items-table th {
-    background-color: #4CAF50;
-    color: white;
+.order-items-table th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.order-items-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.order-items-table tr:hover {
+    background-color: #e6f7ff;
+}
+
+/* Total price styling */
+.total-price {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Center align the order container */
+.order-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
