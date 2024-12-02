@@ -9,7 +9,7 @@ body {
 /* Navbar styling */
 .navbar {
   display: flex;
-  background-color: #333;
+  background-color: #cc0000;
   padding: 10px 20px;
 }
 /* Combined styling for links and dropdown main link */
@@ -32,7 +32,7 @@ body {
   position: absolute;
   top: 100%; /* Positions dropdown directly below the "More" link */
   left: 0;
-  background-color: #333;
+  background-color: #b30000;
   min-width: 160px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
